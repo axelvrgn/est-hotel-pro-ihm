@@ -4,11 +4,13 @@ import "./index.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomeView from "./views/HomeView.tsx";
+import ErrorView from "./views/ErrorView.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeView />,
+    errorElement: <ErrorView />,
   },
 ]);
 
