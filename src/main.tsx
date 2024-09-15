@@ -7,6 +7,8 @@ import HomeView from "./views/HomeView.tsx";
 import ErrorView from "./views/ErrorView.tsx";
 
 const colors = {
+  primary: "#e49b0e",
+  body: "#212529",
   brand: {
     900: "#1a365d",
     800: "#153e75",
