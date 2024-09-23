@@ -11,7 +11,10 @@ Cette application est un projet de départ utilisant Vite pour un développement
 Pour commencer avec ce projet, suivez ces étapes :
 
 1. Clonez le dépôt sur votre machine locale.
-2. Allez à la racine du projet et lancez
+2. Allez à la racine du projet et lancez :
    ```bash
    npm install
+3. Une fois l'installation des dépendances terminée vous pouvez :
+   - lancer le projet : npm run dev
+   - builder le projet : npm run build
    
