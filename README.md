@@ -1,10 +1,10 @@
-# Mon Application Vite React.js
+# Application Vite React.js
 
-Bienvenue dans mon application Vite React.js ! 
+Est Hotel Pro
 
 ## Description
 
-Cette application est un projet de départ utilisant Vite pour un développement rapide et React pour la création d'interfaces utilisateur réactives.
+Partie front-end de l'application Est Hotel Pro.
 
 ## Installation
 
