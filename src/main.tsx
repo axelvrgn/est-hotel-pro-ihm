@@ -5,6 +5,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomeView from "./views/HomeView.tsx";
 import ErrorView from "./views/ErrorView.tsx";
+import LoginView from "./views/LoginView.tsx";
 
 const colors = {
   primary: "#e49b0e",
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <HomeView />,
     errorElement: <ErrorView />,
+  },
+  {
+    path: "/login",
+    element: <LoginView />,
   },
 ]);
 
