@@ -1,14 +1,22 @@
-import { FormControl, FormErrorMessage } from "@chakra-ui/react";
+import { FormControl, FormErrorMessage, FormLabel } from "@chakra-ui/react";
 import { FieldError } from "react-hook-form";
 
 type FormControlProps = {
+  label: string;
   children: React.ReactNode;
+  isRequired?: boolean;
   errorField?: FieldError;
 };
 
-const CustomFormControl = ({ children, errorField }: FormControlProps) => {
+const CustomFormControl = ({
+  label,
+  children,
+  isRequired,
+  errorField,
+}: FormControlProps) => {
   return (
-    <FormControl isInvalid={!!errorField}>
+    <FormControl isInvalid={!!errorField} isRequired={isRequired}>
+      <FormLabel>{label}</FormLabel>
       {children}
       <FormErrorMessage>{errorField && errorField.message}</FormErrorMessage>
     </FormControl>

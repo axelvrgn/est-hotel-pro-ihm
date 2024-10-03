@@ -6,6 +6,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomeView from "./views/HomeView.tsx";
 import ErrorView from "./views/ErrorView.tsx";
 import LoginView from "./views/LoginView.tsx";
+import PageLayout from "./layout/PageLayout.tsx";
+import ReservationView from "./views/Reservation/ReservationView.tsx";
+import CreationReservationView from "./views/Reservation/CreationReservationView.tsx";
 
 const colors = {
   primary: "#e49b0e",
@@ -22,15 +25,31 @@ const theme = extendTheme({ colors });
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomeView />,
-    errorElement: <ErrorView />,
+    element: <PageLayout />,
+    children: [
+      {
+        index: true,
+        element: <HomeView />,
+      },
+      {
+        path: "login",
+        element: <LoginView />,
+      },
+      {
+        path: "reservation",
+        element: <ReservationView />,
+      },
+      {
+        path: "reservation/creation",
+        element: <CreationReservationView />,
+      },
+    ],
   },
   {
-    path: "/login",
-    element: <LoginView />,
+    path: "*",
+    element: <ErrorView />,
   },
 ]);
-
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ChakraProvider theme={theme}>
