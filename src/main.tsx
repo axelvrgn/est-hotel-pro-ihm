@@ -28,6 +28,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <PageLayout />,
+    errorElement: <ErrorView />,
     children: [
       {
         index: true,
@@ -53,11 +54,11 @@ const router = createBrowserRouter([
         path: "hotelRoom/creation",
         element: <HotelRoomCreationView />,
       },
+      {
+        path: "*",
+        element: <ErrorView />,
+      },
     ],
-  },
-  {
-    path: "*",
-    element: <ErrorView />,
   },
 ]);
 createRoot(document.getElementById("root")!).render(
