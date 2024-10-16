@@ -4,7 +4,7 @@ import CustomInput from "../Form/CustomInput";
 import { Button, Spacer } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CHAMP_OBLIGATOIRE } from "../../data/constants";
+import { CHAMP_OBLIGATOIRE, ENREGISTRER } from "../../data/constants";
 import CustomTextArea from "../Form/CustomTextArea";
 
 //installer moment js
@@ -104,7 +104,7 @@ const ReservationForm = () => {
       </CustomFormControl>
       <Spacer height={"20px"} />
       <Button type="submit" isDisabled={!isValid}>
-        Enregistrer
+        {ENREGISTRER}
       </Button>
     </form>
   );
