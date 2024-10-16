@@ -10,10 +10,10 @@ export enum CategoryRoom {
   VILLA_VIP,
 }
 
-export type HotelRoom = {
+export interface HotelRoom {
   id: string;
   roomNumber: number;
   price: number;
   category: CategoryRoom;
   state: string;
-};
+}

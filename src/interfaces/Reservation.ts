@@ -1,4 +1,4 @@
-export type Reservation = {
+export interface Reservation {
   id: string;
   startDate: string;
   endDate: string;
@@ -7,4 +7,4 @@ export type Reservation = {
   numberOfAdults: number;
   pricePaid: number;
   review: number;
-};
+}
