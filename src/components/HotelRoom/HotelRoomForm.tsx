@@ -5,7 +5,9 @@ import { Button, Spacer } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CHAMP_OBLIGATOIRE, ENREGISTRER } from "../../data/constants";
-//installer moment js
+import CustomSelect from "../Form/CustomSelect";
+import { CATEGORIES_ROOM } from "../../data/HotelRoom";
+import { HotelRoom } from "../../interfaces/HotelRoom";
 
 interface IHotelRoomFormValues {
   roomNumber: number;
@@ -27,7 +29,11 @@ const hotelRoomFormValidationSchema = yup.object().shape({
   state: yup.string().required(CHAMP_OBLIGATOIRE),
 });
 
-const HotelRoomForm = () => {
+type HotelRoomFormProps = {
+  submitFunction: (values: HotelRoom) => void;
+};
+
+const HotelRoomForm = ({ submitFunction }: HotelRoomFormProps) => {
   const {
     handleSubmit,
     register,
@@ -38,7 +44,15 @@ const HotelRoomForm = () => {
   });
 
   const onSubmit = (values: IHotelRoomFormValues) => {
-    return values;
+    const newHotelRoom: HotelRoom = {
+      id: values.roomNumber.toString(),
+      roomNumber: values.roomNumber,
+      price: values.price,
+      category: values.categoryRoom as any,
+      state: values.state,
+    };
+
+    submitFunction(newHotelRoom);
   };
 
   return (
@@ -59,10 +73,20 @@ const HotelRoomForm = () => {
           <CustomInput type="number" name="price" register={register} min={0} />
         </CustomFormControl>
         <CustomFormControl label="Catégorie" errorField={errors.categoryRoom}>
-          <CustomInput type="text" name="categoryRoom" register={register} />
+          <CustomSelect
+            name="categoryRoom"
+            register={register}
+            placeholder="Sélectionner une catégorie"
+            options={CATEGORIES_ROOM}
+          />
         </CustomFormControl>
         <CustomFormControl label="Statut" errorField={errors.state}>
-          <CustomInput type="text" name="state" register={register} />
+          <CustomSelect
+            name="state"
+            register={register}
+            placeholder="Sélectionner un statut"
+            options={["option1", "option2"]}
+          />
         </CustomFormControl>
       </div>
       <Spacer height={"20px"} />
