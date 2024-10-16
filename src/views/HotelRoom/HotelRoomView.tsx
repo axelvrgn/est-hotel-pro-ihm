@@ -1,6 +1,7 @@
 import { Button, Heading } from "@chakra-ui/react";
 import PageContainer from "../../layout/PageContainer";
 import { useNavigate } from "react-router-dom";
+import { AddIcon } from "@chakra-ui/icons";
 
 const HotelRoomView = () => {
   const navigate = useNavigate();
@@ -13,7 +14,12 @@ const HotelRoomView = () => {
     <PageContainer>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Heading>{"Chambres"}</Heading>
-        <Button onClick={navigateToCreationReservation} alignSelf={"flex-end"}>
+        <Button
+          leftIcon={<AddIcon />}
+          onClick={navigateToCreationReservation}
+          alignSelf={"flex-end"}
+          colorScheme="primary"
+        >
           {"Ajouter une chambre"}
         </Button>
       </div>

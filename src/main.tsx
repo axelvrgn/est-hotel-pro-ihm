@@ -13,12 +13,17 @@ import HotelRoomView from "./views/HotelRoom/HotelRoomView.tsx";
 import HotelRoomCreationView from "./views/HotelRoom/HotelRoomCreationView.tsx";
 
 const colors = {
-  primary: "#e49b0e",
-  body: "#212529",
-  brand: {
-    900: "#1a365d",
-    800: "#153e75",
-    700: "#2a69ac",
+  primary: {
+    50: "#f1cd86",
+    100: "#eec36e",
+    200: "#ecb956",
+    300: "#e9af3e",
+    400: "#e6a526",
+    500: "#e49b0e",
+    600: "#cd8b0c",
+    700: "#b67c0b",
+    800: "#9f6c09",
+    900: "#885d08",
   },
 };
 

@@ -43,28 +43,30 @@ const HotelRoomForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <CustomFormControl
-        label={"Numéro de chambre"}
-        errorField={errors.roomNumber}
-      >
-        <CustomInput
-          type="number"
-          name="roomNumber"
-          register={register}
-          min={0}
-        />
-      </CustomFormControl>
-      <CustomFormControl label={"Prix"} errorField={errors.price}>
-        <CustomInput type="number" name="price" register={register} min={0} />
-      </CustomFormControl>
-      <CustomFormControl label="Catégorie" errorField={errors.categoryRoom}>
-        <CustomInput type="text" name="categoryRoom" register={register} />
-      </CustomFormControl>
-      <CustomFormControl label="Statut" errorField={errors.state}>
-        <CustomInput type="text" name="state" register={register} />
-      </CustomFormControl>
+      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <CustomFormControl
+          label={"Numéro de chambre"}
+          errorField={errors.roomNumber}
+        >
+          <CustomInput
+            type="number"
+            name="roomNumber"
+            register={register}
+            min={0}
+          />
+        </CustomFormControl>
+        <CustomFormControl label={"Prix"} errorField={errors.price}>
+          <CustomInput type="number" name="price" register={register} min={0} />
+        </CustomFormControl>
+        <CustomFormControl label="Catégorie" errorField={errors.categoryRoom}>
+          <CustomInput type="text" name="categoryRoom" register={register} />
+        </CustomFormControl>
+        <CustomFormControl label="Statut" errorField={errors.state}>
+          <CustomInput type="text" name="state" register={register} />
+        </CustomFormControl>
+      </div>
       <Spacer height={"20px"} />
-      <Button type="submit" isDisabled={!isValid}>
+      <Button type="submit" colorScheme="primary" isDisabled={!isValid}>
         {ENREGISTRER}
       </Button>
     </form>
