@@ -1,7 +1,7 @@
 import ReservationForm from "../../components/Reservation/ReservationForm";
 import PageContainer from "../../layout/PageContainer";
 
-const CreationReservationView = () => {
+const ReservationCreationView = () => {
   return (
     <PageContainer>
       <ReservationForm />
@@ -9,4 +9,4 @@ const CreationReservationView = () => {
   );
 };
 
-export default CreationReservationView;
+export default ReservationCreationView;

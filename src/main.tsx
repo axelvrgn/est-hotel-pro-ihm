@@ -8,7 +8,7 @@ import ErrorView from "./views/ErrorView.tsx";
 import LoginView from "./views/LoginView.tsx";
 import PageLayout from "./layout/PageLayout.tsx";
 import ReservationView from "./views/Reservation/ReservationView.tsx";
-import CreationReservationView from "./views/Reservation/CreationReservationView.tsx";
+import ReservationCreationView from "./views/Reservation/ReservationCreationView.tsx";
 
 const colors = {
   primary: "#e49b0e",
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
       },
       {
         path: "reservation/creation",
-        element: <CreationReservationView />,
+        element: <ReservationCreationView />,
       },
     ],
   },
