@@ -1,11 +1,11 @@
-import { Text } from "@chakra-ui/react";
+import { Heading } from "@chakra-ui/react";
+import PageContainer from "../layout/PageContainer";
 
 const HomeView = () => {
   return (
-    <div>
-      <h1>Home</h1>
-      <Text color={"primary"}>Welcome</Text>
-    </div>
+    <PageContainer>
+      <Heading>{"Accueil"}</Heading>
+    </PageContainer>
   );
 };
 

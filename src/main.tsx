@@ -1,6 +1,6 @@
+import "./index.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomeView from "./views/HomeView.tsx";
@@ -9,6 +9,8 @@ import LoginView from "./views/LoginView.tsx";
 import PageLayout from "./layout/PageLayout.tsx";
 import ReservationView from "./views/Reservation/ReservationView.tsx";
 import ReservationCreationView from "./views/Reservation/ReservationCreationView.tsx";
+import HotelRoomView from "./views/HotelRoom/HotelRoomView.tsx";
+import HotelRoomCreationView from "./views/HotelRoom/HotelRoomCreationView.tsx";
 
 const colors = {
   primary: "#e49b0e",
@@ -42,6 +44,14 @@ const router = createBrowserRouter([
       {
         path: "reservation/creation",
         element: <ReservationCreationView />,
+      },
+      {
+        path: "hotelRoom",
+        element: <HotelRoomView />,
+      },
+      {
+        path: "hotelRoom/creation",
+        element: <HotelRoomCreationView />,
       },
     ],
   },

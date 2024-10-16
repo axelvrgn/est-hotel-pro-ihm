@@ -20,6 +20,12 @@ const Navbar = () => {
         >
           <CustomLink to={"/reservation"} label={"Réservation"} />
         </div>
+        <div
+          style={{ padding: "8px", border: "2px solid white" }}
+          className={`navbar-link`}
+        >
+          <CustomLink to={"/hotelRoom"} label={"Chambre"} />
+        </div>
       </div>
     </div>
   );
