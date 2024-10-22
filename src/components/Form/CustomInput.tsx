@@ -23,6 +23,7 @@ const CustomInput = ({
       {...register(name)}
       min={min}
       focusBorderColor="primary.300"
+      variant={"outline"}
     />
   );
 };

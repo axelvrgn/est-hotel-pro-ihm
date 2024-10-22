@@ -1,10 +1,15 @@
 import { useForm } from "react-hook-form";
 import CustomFormControl from "../Form/CustomFormControl";
 import CustomInput from "../Form/CustomInput";
-import { Button, Spacer } from "@chakra-ui/react";
+import {
+  Button,
+  InputGroup,
+  InputRightElement,
+  Spacer,
+} from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CHAMP_OBLIGATOIRE, ENREGISTRER } from "../../data/constants";
+import { CHAMP_OBLIGATOIRE, DZD, ENREGISTRER } from "../../data/constants";
 import CustomTextArea from "../Form/CustomTextArea";
 
 //installer moment js
@@ -104,12 +109,17 @@ const ReservationForm = () => {
           />
         </CustomFormControl>
         <CustomFormControl label={"Prix"} errorField={errors.pricePaid}>
-          <CustomInput
-            type="number"
-            name="pricePaid"
-            register={register}
-            min={0}
-          />
+          <InputGroup>
+            <CustomInput
+              type="number"
+              name="pricePaid"
+              register={register}
+              min={0}
+            />
+            <InputRightElement style={{ fontWeight: "600" }}>
+              {DZD}
+            </InputRightElement>
+          </InputGroup>
         </CustomFormControl>
         <CustomFormControl label={"Review"} errorField={errors.review}>
           <CustomInput
