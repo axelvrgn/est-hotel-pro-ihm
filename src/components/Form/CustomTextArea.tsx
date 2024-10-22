@@ -8,7 +8,13 @@ type CustomInputProps = {
 };
 
 const CustomTextArea = ({ name, register, placeholder }: CustomInputProps) => {
-  return <Textarea placeholder={placeholder} {...register(name)} />;
+  return (
+    <Textarea
+      placeholder={placeholder}
+      {...register(name)}
+      focusBorderColor="primary.300"
+    />
+  );
 };
 
 export default CustomTextArea;

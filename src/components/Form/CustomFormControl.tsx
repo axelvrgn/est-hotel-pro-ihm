@@ -18,7 +18,9 @@ const CustomFormControl = ({
     <FormControl isInvalid={!!errorField} isRequired={isRequired}>
       <FormLabel>{label}</FormLabel>
       {children}
-      <FormErrorMessage>{errorField && errorField.message}</FormErrorMessage>
+      <FormErrorMessage style={{ fontWeight: "600" }}>
+        {errorField && errorField.message}
+      </FormErrorMessage>
     </FormControl>
   );
 };

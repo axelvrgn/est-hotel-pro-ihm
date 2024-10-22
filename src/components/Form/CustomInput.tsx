@@ -22,6 +22,7 @@ const CustomInput = ({
       placeholder={placeholder}
       {...register(name)}
       min={min}
+      focusBorderColor="primary.300"
     />
   );
 };

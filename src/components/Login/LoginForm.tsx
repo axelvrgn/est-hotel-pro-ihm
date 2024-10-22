@@ -29,7 +29,7 @@ const LoginForm = ({ submitFunction, formIsSubmitting }: LoginFormProps) => {
     register,
     formState: { errors, isValid },
   } = useForm<ILoginFormValues>({
-    mode: "onBlur",
+    mode: "onChange",
     resolver: yupResolver(loginFormValidationSchema),
   });
 
@@ -43,7 +43,13 @@ const LoginForm = ({ submitFunction, formIsSubmitting }: LoginFormProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "25px",
+        }}
+      >
         <CustomFormControl label="Identifiant" errorField={errors.identifiant}>
           <CustomInput
             type="text"
@@ -59,16 +65,16 @@ const LoginForm = ({ submitFunction, formIsSubmitting }: LoginFormProps) => {
             placeholder="Mot de passe"
           />
         </CustomFormControl>
+        <Button
+          type="submit"
+          colorScheme={"primary"}
+          isLoading={formIsSubmitting}
+          isDisabled={!isValid}
+        >
+          {"Se connecter"}
+        </Button>
       </div>
-      <Spacer height={"20px"} />
-      <Button
-        type="submit"
-        colorScheme={"primary"}
-        isLoading={formIsSubmitting}
-        isDisabled={!isValid}
-      >
-        {"Se connecter"}
-      </Button>
+      <Spacer height={"25px"} />
     </form>
   );
 };

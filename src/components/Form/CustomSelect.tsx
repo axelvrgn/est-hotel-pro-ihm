@@ -15,7 +15,11 @@ const CustomSelect = ({
   options,
 }: CustomInputProps) => {
   return (
-    <Select {...register(name)} placeholder={placeholder}>
+    <Select
+      {...register(name)}
+      placeholder={placeholder}
+      focusBorderColor="primary.300"
+    >
       {options.map((option) => (
         <option value={option}>{option}</option>
       ))}
