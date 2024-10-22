@@ -1,22 +1,28 @@
 import { useForm } from "react-hook-form";
 import CustomFormControl from "../Form/CustomFormControl";
 import CustomInput from "../Form/CustomInput";
-import { Button } from "@chakra-ui/react";
+import { Button, Spacer } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CHAMP_OBLIGATOIRE } from "../../data/constants";
+import { Login } from "../../interfaces/Login";
 
 interface ILoginFormValues {
-  email: string;
+  identifiant: string;
   password: string;
 }
 
 const loginFormValidationSchema = yup.object().shape({
-  email: yup.string().email().required(CHAMP_OBLIGATOIRE),
+  identifiant: yup.string().required(CHAMP_OBLIGATOIRE),
   password: yup.string().required(CHAMP_OBLIGATOIRE),
 });
 
-const LoginForm = () => {
+type LoginFormProps = {
+  submitFunction: (login: Login) => void;
+  formIsSubmitting: boolean;
+};
+
+const LoginForm = ({ submitFunction, formIsSubmitting }: LoginFormProps) => {
   const {
     handleSubmit,
     register,
@@ -24,23 +30,23 @@ const LoginForm = () => {
   } = useForm<ILoginFormValues>({
     mode: "onBlur",
     resolver: yupResolver(loginFormValidationSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
   });
 
   const onSubmit = (values: ILoginFormValues) => {
-    return values;
+    const login: Login = {
+      name: values.identifiant,
+      password: values.password,
+    };
+    submitFunction(login);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <CustomFormControl label="Identifiant" errorField={errors.email}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <CustomFormControl label="Identifiant" errorField={errors.identifiant}>
           <CustomInput
-            type="email"
-            name="email"
+            type="text"
+            name="identifiant"
             register={register}
             placeholder="Identifiant"
           />
@@ -53,8 +59,15 @@ const LoginForm = () => {
             placeholder="Mot de passe"
           />
         </CustomFormControl>
-        <Button type="submit">{"Se connecter"}</Button>
       </div>
+      <Spacer height={"20px"} />
+      <Button
+        type="submit"
+        colorScheme={"primary"}
+        isLoading={formIsSubmitting}
+      >
+        {"Se connecter"}
+      </Button>
     </form>
   );
 };
