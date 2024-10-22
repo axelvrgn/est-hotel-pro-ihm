@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CHAMP_OBLIGATOIRE } from "../../data/constants";
 import { Login } from "../../interfaces/Login";
+import PasswordInput from "./PasswordInput";
 
 interface ILoginFormValues {
   identifiant: string;
@@ -26,7 +27,7 @@ const LoginForm = ({ submitFunction, formIsSubmitting }: LoginFormProps) => {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<ILoginFormValues>({
     mode: "onBlur",
     resolver: yupResolver(loginFormValidationSchema),
@@ -52,8 +53,7 @@ const LoginForm = ({ submitFunction, formIsSubmitting }: LoginFormProps) => {
           />
         </CustomFormControl>
         <CustomFormControl label="Mot de passe" errorField={errors.password}>
-          <CustomInput
-            type="password"
+          <PasswordInput
             name="password"
             register={register}
             placeholder="Mot de passe"
@@ -65,6 +65,7 @@ const LoginForm = ({ submitFunction, formIsSubmitting }: LoginFormProps) => {
         type="submit"
         colorScheme={"primary"}
         isLoading={formIsSubmitting}
+        isDisabled={!isValid}
       >
         {"Se connecter"}
       </Button>

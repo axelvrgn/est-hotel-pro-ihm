@@ -2,7 +2,7 @@ import { Heading } from "@chakra-ui/react";
 import HotelRoomForm from "../../components/HotelRoom/HotelRoomForm";
 import PageContainer from "../../layout/PageContainer";
 import { HotelRoom } from "../../interfaces/HotelRoom";
-import { HotelRoomService } from "../../services/hotelRoomService";
+import { HotelRoomService } from "../../services/HotelRoomService";
 
 const HotelRoomCreationView = () => {
   const addReservation = (newHotelRoom: HotelRoom) => {

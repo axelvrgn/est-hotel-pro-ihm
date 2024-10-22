@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import LoginForm from "../components/Login/LoginForm";
 import PageContainer from "../layout/PageContainer";
 import { useState } from "react";
@@ -18,6 +18,9 @@ const LoginView = () => {
   };
   return (
     <PageContainer>
+      <Heading as="h3" size="lg">
+        {"Connexion"}
+      </Heading>
       <Box>
         <LoginForm submitFunction={login} formIsSubmitting={formIsSubmitting} />
       </Box>
