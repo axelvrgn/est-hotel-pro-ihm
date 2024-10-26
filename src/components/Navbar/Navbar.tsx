@@ -11,6 +11,9 @@ const Navbar = () => {
         padding: "0 20px",
       }}
     >
+      <div>
+        <img src="./assets/logo-est-hotel-pro.png" />
+      </div>
       <div
         style={{
           display: "flex",

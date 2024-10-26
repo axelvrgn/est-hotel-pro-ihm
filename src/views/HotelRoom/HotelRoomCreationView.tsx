@@ -1,4 +1,4 @@
-import { Heading } from "@chakra-ui/react";
+import { Box, Heading, Spacer } from "@chakra-ui/react";
 import HotelRoomForm from "../../components/HotelRoom/HotelRoomForm";
 import PageContainer from "../../layout/PageContainer";
 import { HotelRoom } from "../../interfaces/HotelRoom";
@@ -14,7 +14,10 @@ const HotelRoomCreationView = () => {
       <Heading as="h3" size="lg">
         {"Nouvelle chambre"}
       </Heading>
-      <HotelRoomForm submitFunction={addReservation} />
+      <Spacer h={6} />
+      <Box>
+        <HotelRoomForm submitFunction={addReservation} />
+      </Box>
     </PageContainer>
   );
 };

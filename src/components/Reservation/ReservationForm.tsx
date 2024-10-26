@@ -11,10 +11,14 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CHAMP_OBLIGATOIRE, DZD, ENREGISTRER } from "../../data/constants";
 import CustomTextArea from "../Form/CustomTextArea";
+import { Reservation, UserSnapShot } from "../../interfaces/Reservation";
 
 //installer moment js
 
 interface IReservationFormValues {
+  userName: string;
+  userFirstName: string;
+  userNumberPhone: string;
   startDate: string;
   endDate: string;
   claim: string;
@@ -25,6 +29,9 @@ interface IReservationFormValues {
 }
 
 const reservationFormValidationSchema = yup.object().shape({
+  userName: yup.string().required(CHAMP_OBLIGATOIRE),
+  userFirstName: yup.string().required(CHAMP_OBLIGATOIRE),
+  userNumberPhone: yup.string().required(CHAMP_OBLIGATOIRE),
   startDate: yup.string().required(CHAMP_OBLIGATOIRE),
   endDate: yup.string().required(CHAMP_OBLIGATOIRE),
   claim: yup.string().required(CHAMP_OBLIGATOIRE),
@@ -50,7 +57,15 @@ const reservationFormValidationSchema = yup.object().shape({
     .transform((val) => (val === Number(val) ? val : null)),
 });
 
-const ReservationForm = () => {
+type ReservationFormProps = {
+  submitFunction: (newReservation: Reservation) => void;
+  formIsSubmitting: boolean;
+};
+
+const ReservationForm = ({
+  submitFunction,
+  formIsSubmitting,
+}: ReservationFormProps) => {
   const today = new Date();
   const tomorrow = new Date(today.getDate() + 1);
 
@@ -68,17 +83,53 @@ const ReservationForm = () => {
   });
 
   const onSubmit = (values: IReservationFormValues) => {
-    return values;
+    const reservationUser: UserSnapShot = {
+      name: values.userName,
+      firstName: values.userFirstName,
+      numberPhone: values.userNumberPhone,
+    };
+
+    const newReservation: Reservation = {
+      id: "reservation-" + Math.random().toString(),
+      userSnapShot: reservationUser,
+      startDate: values.startDate,
+      endDate: values.endDate,
+      claim: values.claim,
+      numberOfChildren: values.numberOfChildren,
+      numberOfAdults: values.numberOfAdults,
+      pricePaid: values.pricePaid,
+      review: values.review,
+    };
+
+    submitFunction(newReservation);
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-        <CustomFormControl label={"Début"} errorField={errors.startDate}>
-          <CustomInput type="date" name="startDate" register={register} />
-        </CustomFormControl>
-        <CustomFormControl label={"Fin"} errorField={errors.endDate}>
-          <CustomInput type="date" name="endDate" register={register} />
-        </CustomFormControl>
+        <div style={{ display: "flex", gap: "15px" }}>
+          <CustomFormControl label={"Nom"} errorField={errors.startDate}>
+            <CustomInput type="text" name="userName" register={register} />
+          </CustomFormControl>
+          <CustomFormControl label={"Prénom"} errorField={errors.startDate}>
+            <CustomInput type="text" name="userFirstName" register={register} />
+          </CustomFormControl>
+          <CustomFormControl label={"Téléphone"} errorField={errors.startDate}>
+            <CustomInput
+              type="text"
+              name="userPhoneNumber"
+              register={register}
+            />
+          </CustomFormControl>
+        </div>
+        <div style={{ display: "flex", gap: "15px" }}>
+          <CustomFormControl label={"Début"} errorField={errors.startDate}>
+            <CustomInput type="date" name="startDate" register={register} />
+          </CustomFormControl>
+          <CustomFormControl label={"Fin"} errorField={errors.endDate}>
+            <CustomInput type="date" name="endDate" register={register} />
+          </CustomFormControl>
+        </div>
         <CustomFormControl label="Réclamations" errorField={errors.claim}>
           <CustomTextArea
             name="claim"
@@ -131,7 +182,12 @@ const ReservationForm = () => {
         </CustomFormControl>
       </div>
       <Spacer height={"20px"} />
-      <Button type="submit" colorScheme="primary" isDisabled={!isValid}>
+      <Button
+        type="submit"
+        colorScheme="primary"
+        isDisabled={!isValid}
+        isLoading={formIsSubmitting}
+      >
         {ENREGISTRER}
       </Button>
     </form>

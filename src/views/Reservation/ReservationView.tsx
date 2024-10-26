@@ -2,13 +2,22 @@ import { Button, Heading } from "@chakra-ui/react";
 import PageContainer from "../../layout/PageContainer";
 import { useNavigate } from "react-router-dom";
 import { AddIcon } from "@chakra-ui/icons";
+import { useEffect } from "react";
+import { useToasts } from "../../contexts/toast";
 
 const ReservationView = () => {
   const navigate = useNavigate();
+  const { pushToast } = useToasts();
 
   const navigateToCreationReservation = () => {
     navigate("creation");
   };
+
+  useEffect(() => {
+    pushToast({
+      content: "test",
+    });
+  }, []);
 
   return (
     <PageContainer>
