@@ -10,11 +10,11 @@ const getRoomById = async (roomId: string) => {
 };
 
 const getAllRooms = async () => {
-  return axios.get<HotelRoom[]>("/v1/hotel-rooms");
+  return axios.get<HotelRoom[]>("localhost:8080/v1/hotel-rooms");
 };
 
 const createRoom = async (newRoom: HotelRoom) => {
-  return axios.post("/v1/hotel-rooms", newRoom);
+  return axios.post("localhost:8080/v1/hotel-rooms", newRoom);
 };
 
 export const HotelRoomService = {

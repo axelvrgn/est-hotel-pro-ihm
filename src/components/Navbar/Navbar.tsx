@@ -1,7 +1,15 @@
-import { Avatar } from "@chakra-ui/react";
+import { Avatar, Text } from "@chakra-ui/react";
 import NavbarLink from "./NavbarLink";
+import logo from "../../assets/logo-est-hotel-pro.png";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const navigateToHome = () => {
+    navigate("/");
+  };
+
   return (
     <div
       style={{
@@ -17,14 +25,25 @@ const Navbar = () => {
           height: "100%",
           gap: "10px",
           alignItems: "center",
-          justifyContent: "flex-end",
+          justifyContent: "space-between",
         }}
       >
-        <NavbarLink to={"/reservation"}>{"Réservation"}</NavbarLink>
-        <NavbarLink to={"/hotelRoom"}>{"Chambre"}</NavbarLink>
-        <NavbarLink to={"/login"}>
-          <Avatar size="xs" />
-        </NavbarLink>
+        <div
+          className="navlink-logo-ehp"
+          style={{ display: "flex", alignItems: "center" }}
+          onClick={navigateToHome}
+        >
+          <img src={logo} alt="Site Logo" style={{ height: "3rem" }} />
+          <Text fontSize={"2xl"}>{"Est Hotel Pro"}</Text>
+        </div>
+
+        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+          <NavbarLink to={"/reservation"}>{"Réservation"}</NavbarLink>
+          <NavbarLink to={"/hotelRoom"}>{"Chambre"}</NavbarLink>
+          <NavbarLink to={"/login"}>
+            <Avatar size="xs" />
+          </NavbarLink>
+        </div>
       </div>
     </div>
   );

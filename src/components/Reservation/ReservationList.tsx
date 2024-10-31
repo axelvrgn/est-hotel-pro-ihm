@@ -51,9 +51,9 @@ const ReservationList = () => {
   }, []);
 
   const fetchReservations = () => {
-    ReservationService.getAllReservations().then((reservationsRes) =>
-      setReservations(reservationsRes.data)
-    );
+    ReservationService.getAllReservations().then((reservationsRes) => {
+      setReservations(reservationsRes.data);
+    });
   };
 
   const openDetailedModal = (reservation: Reservation) => {
@@ -77,14 +77,18 @@ const ReservationList = () => {
       )}
 
       <Container>
-        <SimpleGrid gap={"1.5rem"}>
-          {reservations.map((reservation) => (
-            <ReservationItem
-              reservation={reservation}
-              openDetailedModal={openDetailedModal}
-            />
-          ))}
-        </SimpleGrid>
+        {reservations.length === 0 ? (
+          <p>{"Aucune réservation trouvée"}</p>
+        ) : (
+          <SimpleGrid gap={"1.5rem"}>
+            {reservations.map((reservation) => (
+              <ReservationItem
+                reservation={reservation}
+                openDetailedModal={openDetailedModal}
+              />
+            ))}
+          </SimpleGrid>
+        )}
       </Container>
     </>
   );

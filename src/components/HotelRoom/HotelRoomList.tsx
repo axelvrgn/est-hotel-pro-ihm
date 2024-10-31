@@ -62,14 +62,18 @@ const HotelRoomList = () => {
       )}
 
       <Container>
-        <SimpleGrid gap={"1.5rem"}>
-          {hotelRooms.map((hotelRoom) => (
-            <HotelRoomItem
-              hotelRoom={hotelRoom}
-              openDetailedModal={openDetailedModal}
-            />
-          ))}
-        </SimpleGrid>
+        {hotelRooms.length === 0 ? (
+          <p>{"Aucune chambre trouvée"}</p>
+        ) : (
+          <SimpleGrid gap={"1.5rem"}>
+            {hotelRooms.map((hotelRoom) => (
+              <HotelRoomItem
+                hotelRoom={hotelRoom}
+                openDetailedModal={openDetailedModal}
+              />
+            ))}
+          </SimpleGrid>
+        )}
       </Container>
     </>
   );
