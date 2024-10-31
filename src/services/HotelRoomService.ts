@@ -10,7 +10,7 @@ const getRoomById = async (roomId: string) => {
 };
 
 const getAllRooms = async () => {
-  return axios.get("/v1/hotel-rooms");
+  return axios.get<HotelRoom[]>("/v1/hotel-rooms");
 };
 
 const createRoom = async (newRoom: HotelRoom) => {

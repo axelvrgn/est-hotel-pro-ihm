@@ -64,14 +64,16 @@ const Toasts = () => {
 
   return (
     <div
-      className="absolute flex flex-col top-14 right-0 px-2 w-90"
       style={{
         position: "absolute",
         display: "flex",
         flexDirection: "column",
-        top: "14px",
+        top: "5rem",
         right: "0",
-        width: "300px",
+        width: "350px",
+        zIndex: 999,
+        gap: "0.3rem",
+        paddingRight: "0.5rem",
       }}
     >
       {toasts.map((toast) => (

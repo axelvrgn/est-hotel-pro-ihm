@@ -14,16 +14,56 @@ type ToastProps = {
 const Toast = ({ content, state = INFO, onDismiss }: ToastProps) => {
   return (
     <div
-      className="flex items-center w-full max-w-xl p-2 mb-2 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+      style={{
+        display: "flex",
+        alignItems: "center",
+        width: "100%",
+        maxWidth: "36rem",
+        padding: "0.5rem",
+        marginBottom: "0.5rem",
+        color: "#6b7280",
+        backgroundColor: "white",
+        borderRadius: "0.5rem",
+        boxShadow:
+          "0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06)",
+      }}
       role="alert"
     >
-      <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8">
+      <div
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexShrink: 0,
+          width: "2rem",
+          height: "2rem",
+        }}
+      >
         <ToastIcon state={state} />
       </div>
-      <div className="mx-3 text-sm font-normal">{content}</div>
+      <div
+        style={{
+          margin: "0 0.75rem",
+          fontSize: "0.875rem",
+          fontWeight: "normal",
+        }}
+      >
+        {content}
+      </div>
       <button
         type="button"
-        className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-purple-600 rounded-lg focus:ring-2 focus:ring-gray-300 p-4 hover:bg-gray-100 inline-flex items-center justify-center h-4 w-4 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+        style={{
+          marginLeft: "auto",
+          backgroundColor: "white",
+          color: "#9ca3af",
+          borderRadius: "0.5rem",
+          padding: "1rem",
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "1rem",
+          width: "1rem",
+        }}
         aria-label="Close"
         onClick={onDismiss}
       >

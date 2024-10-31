@@ -2,7 +2,7 @@ import axios from "axios";
 import { Reservation } from "../interfaces/Reservation";
 
 const getAllReservations = async () => {
-  return axios.get("/v1/reservations");
+  return axios.get<Reservation[]>("/v1/reservations");
 };
 
 const createReservation = async (newReservation: Reservation) => {

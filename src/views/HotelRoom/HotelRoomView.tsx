@@ -1,7 +1,8 @@
-import { Button, Heading } from "@chakra-ui/react";
+import { Button, Heading, Spacer } from "@chakra-ui/react";
 import PageContainer from "../../layout/PageContainer";
 import { useNavigate } from "react-router-dom";
 import { AddIcon } from "@chakra-ui/icons";
+import HotelRoomList from "../../components/HotelRoom/HotelRoomList";
 
 const HotelRoomView = () => {
   const navigate = useNavigate();
@@ -23,6 +24,8 @@ const HotelRoomView = () => {
           {"Ajouter une chambre"}
         </Button>
       </div>
+      <Spacer height={"4rem"} />
+      <HotelRoomList />
     </PageContainer>
   );
 };
