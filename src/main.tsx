@@ -12,6 +12,7 @@ import ReservationCreationView from "./views/Reservation/ReservationCreationView
 import HotelRoomView from "./views/HotelRoom/HotelRoomView.tsx";
 import HotelRoomCreationView from "./views/HotelRoom/HotelRoomCreationView.tsx";
 import { ToastContextProvider } from "./contexts/toast.tsx";
+import { AuthProvider } from "./contexts/auth.tsx";
 
 const colors = {
   primary: {
@@ -71,7 +72,9 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ChakraProvider theme={theme}>
       <ToastContextProvider>
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </ToastContextProvider>
     </ChakraProvider>
   </StrictMode>

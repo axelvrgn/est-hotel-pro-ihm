@@ -4,15 +4,20 @@ import PageContainer from "../layout/PageContainer";
 import { useState } from "react";
 import { AuthService } from "../services/AuthService";
 import { Login } from "../interfaces/Login";
+import { useAuth } from "../contexts/auth";
 
 const LoginView = () => {
   const [formIsSubmitting, setFormIsSubmitting] = useState(false);
+
+  const { addAuth } = useAuth();
 
   const login = (login: Login) => {
     setFormIsSubmitting(true);
 
     AuthService.login(login)
-      .then(() => {})
+      .then((userRes) => {
+        addAuth(userRes.data);
+      })
       .catch((err) => console.log(err))
       .finally(() => setFormIsSubmitting(false));
   };
