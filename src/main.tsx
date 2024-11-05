@@ -13,6 +13,7 @@ import HotelRoomView from "./views/HotelRoom/HotelRoomView.tsx";
 import HotelRoomCreationView from "./views/HotelRoom/HotelRoomCreationView.tsx";
 import { ToastContextProvider } from "./contexts/toast.tsx";
 import { AuthProvider } from "./contexts/auth.tsx";
+import PrivateRoute from "./components/Router/PrivateRoute.tsx";
 
 const colors = {
   primary: {
@@ -39,7 +40,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomeView />,
+        element: (
+          <PrivateRoute>
+            <HomeView />
+          </PrivateRoute>
+        ),
       },
       {
         path: "login",
@@ -47,19 +52,35 @@ const router = createBrowserRouter([
       },
       {
         path: "reservation",
-        element: <ReservationView />,
+        element: (
+          <PrivateRoute>
+            <ReservationView />
+          </PrivateRoute>
+        ),
       },
       {
         path: "reservation/creation",
-        element: <ReservationCreationView />,
+        element: (
+          <PrivateRoute>
+            <ReservationCreationView />
+          </PrivateRoute>
+        ),
       },
       {
         path: "hotelRoom",
-        element: <HotelRoomView />,
+        element: (
+          <PrivateRoute>
+            <HotelRoomView />
+          </PrivateRoute>
+        ),
       },
       {
         path: "hotelRoom/creation",
-        element: <HotelRoomCreationView />,
+        element: (
+          <PrivateRoute>
+            <HotelRoomCreationView />
+          </PrivateRoute>
+        ),
       },
       {
         path: "*",
