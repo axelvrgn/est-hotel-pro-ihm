@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Reservation } from "../../interfaces/Reservation";
-import { Container, SimpleGrid } from "@chakra-ui/react";
+import { Container, SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import { ReservationService } from "../../services/ReservationService";
 import ReservationItem from "./ReservationItem";
 import ReservationDetailedModal from "./ReservationDetailedModal";
@@ -42,6 +42,8 @@ import { useToasts } from "../../contexts/toast";
 
 const ReservationList = () => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
+  const [reservationsAreLoading, setReservationsAreLoading] =
+    useState<boolean>(false);
 
   const [selectedReservation, setSelectedReservation] =
     useState<Reservation | null>(null);
@@ -57,6 +59,7 @@ const ReservationList = () => {
 
   const fetchReservations = () => {
     if (user) {
+      setReservationsAreLoading(true);
       ReservationService.getAllReservations(user.token)
         .then((reservationsRes) => {
           setReservations(reservationsRes.data);
@@ -66,7 +69,8 @@ const ReservationList = () => {
             content: "Erreur lors de la récupération des réservations",
             state: "ERROR",
           })
-        );
+        )
+        .finally(() => setReservationsAreLoading(false));
     }
   };
 
@@ -91,18 +95,24 @@ const ReservationList = () => {
       )}
 
       <Container>
-        {reservations.length === 0 ? (
-          <p>{"Aucune réservation trouvée"}</p>
+        {reservationsAreLoading ? (
+          <Spinner />
         ) : (
-          <SimpleGrid gap={"1.5rem"}>
-            {reservations.map((reservation) => (
-              <ReservationItem
-                key={reservation.id}
-                reservation={reservation}
-                openDetailedModal={openDetailedModal}
-              />
-            ))}
-          </SimpleGrid>
+          <>
+            {reservations.length === 0 ? (
+              <Text>{"Aucune réservation trouvée"}</Text>
+            ) : (
+              <SimpleGrid gap={"1.5rem"}>
+                {reservations.map((reservation) => (
+                  <ReservationItem
+                    key={reservation.id}
+                    reservation={reservation}
+                    openDetailedModal={openDetailedModal}
+                  />
+                ))}
+              </SimpleGrid>
+            )}
+          </>
         )}
       </Container>
     </>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, SimpleGrid } from "@chakra-ui/react";
+import { Container, SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import { HotelRoom } from "../../interfaces/HotelRoom";
 import { HotelRoomService } from "../../services/HotelRoomService";
 import HotelRoomItem from "./HotelRoomItem";
@@ -26,6 +26,8 @@ import { useToasts } from "../../contexts/toast";
 
 const HotelRoomList = () => {
   const [hotelRooms, setHotelRooms] = useState<HotelRoom[]>([]);
+  const [hotelRoomsAreLoading, setHotelRoomsAreLoading] =
+    useState<boolean>(false);
 
   const [selectedHotelRoom, setSelectedHotelRoom] = useState<HotelRoom | null>(
     null
@@ -42,6 +44,7 @@ const HotelRoomList = () => {
 
   const fetchHotelRooms = () => {
     if (user) {
+      setHotelRoomsAreLoading(true);
       HotelRoomService.getAllRooms(user.token)
         .then((hotelRoomsRes) => setHotelRooms(hotelRoomsRes.data))
         .catch(() =>
@@ -49,7 +52,8 @@ const HotelRoomList = () => {
             content: "Erreur lors de la récupération des chambres",
             state: "ERROR",
           })
-        );
+        )
+        .finally(() => setHotelRoomsAreLoading(false));
     }
   };
 
@@ -74,18 +78,24 @@ const HotelRoomList = () => {
       )}
 
       <Container>
-        {hotelRooms.length === 0 ? (
-          <p>{"Aucune chambre trouvée"}</p>
+        {hotelRoomsAreLoading ? (
+          <Spinner />
         ) : (
-          <SimpleGrid gap={"1.5rem"}>
-            {hotelRooms.map((hotelRoom) => (
-              <HotelRoomItem
-                key={hotelRoom.id}
-                hotelRoom={hotelRoom}
-                openDetailedModal={openDetailedModal}
-              />
-            ))}
-          </SimpleGrid>
+          <>
+            {hotelRooms.length === 0 ? (
+              <Text>{"Aucune chambre trouvée"}</Text>
+            ) : (
+              <SimpleGrid gap={"1.5rem"}>
+                {hotelRooms.map((hotelRoom) => (
+                  <HotelRoomItem
+                    key={hotelRoom.id}
+                    hotelRoom={hotelRoom}
+                    openDetailedModal={openDetailedModal}
+                  />
+                ))}
+              </SimpleGrid>
+            )}
+          </>
         )}
       </Container>
     </>
