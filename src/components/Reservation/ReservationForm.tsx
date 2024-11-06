@@ -12,9 +12,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { CHAMP_OBLIGATOIRE, DZD, ENREGISTRER } from "../../data/constants";
 import CustomTextArea from "../Form/CustomTextArea";
 import { Reservation, UserSnapShot } from "../../interfaces/Reservation";
-
-//installer moment js
-
 interface IReservationFormValues {
   userName: string;
   userFirstName: string;

@@ -12,6 +12,7 @@ const HotelRoomCreationView = () => {
 
   const { pushToast } = useToasts();
   const { user } = useAuth();
+
   const addReservation = (newHotelRoom: HotelRoom) => {
     if (user) {
       setFormIsSubmitting(true);

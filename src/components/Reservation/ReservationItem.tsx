@@ -10,6 +10,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Reservation } from "../../interfaces/Reservation";
+import moment from "moment";
+import { DATE_FORMAT } from "../../data/constants";
 
 type ReservationItemProps = {
   reservation: Reservation;
@@ -34,7 +36,9 @@ const ReservationItem = ({
             </div>
           </GridItem>
           <GridItem>
-            <Text>{`du ${reservation.startDate} au ${reservation.endDate}`}</Text>
+            <Text>{`du ${moment(reservation.startDate).format(
+              DATE_FORMAT
+            )} au ${moment(reservation.endDate).format(DATE_FORMAT)}`}</Text>
           </GridItem>
         </Grid>
       </CardBody>
