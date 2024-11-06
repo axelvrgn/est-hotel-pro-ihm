@@ -3,10 +3,32 @@ import HotelRoomForm from "../../components/HotelRoom/HotelRoomForm";
 import PageContainer from "../../layout/PageContainer";
 import { HotelRoom } from "../../interfaces/HotelRoom";
 import { HotelRoomService } from "../../services/HotelRoomService";
+import { useAuth } from "../../contexts/auth";
+import { useToasts } from "../../contexts/toast";
+import { useState } from "react";
 
 const HotelRoomCreationView = () => {
+  const [formIsSubmitting, setFormIsSubmitting] = useState<boolean>(false);
+
+  const { pushToast } = useToasts();
+  const { user } = useAuth();
   const addReservation = (newHotelRoom: HotelRoom) => {
-    HotelRoomService.createRoom(newHotelRoom);
+    if (user) {
+      setFormIsSubmitting(true);
+      HotelRoomService.createRoom(user.token, newHotelRoom)
+        .then(() =>
+          pushToast({
+            content: "Nouvelle chambre créée avec succès",
+            state: "SUCCESS",
+          })
+        )
+        .catch(() =>
+          pushToast({
+            content: "Erreur lors de la création de la chambre",
+          })
+        )
+        .finally(() => setFormIsSubmitting(false));
+    }
   };
 
   return (
@@ -16,7 +38,10 @@ const HotelRoomCreationView = () => {
       </Heading>
       <Spacer h={6} />
       <Box>
-        <HotelRoomForm submitFunction={addReservation} />
+        <HotelRoomForm
+          submitFunction={addReservation}
+          formIsSubmitting={formIsSubmitting}
+        />
       </Box>
     </PageContainer>
   );

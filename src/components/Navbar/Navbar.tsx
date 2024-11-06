@@ -2,9 +2,11 @@ import { Avatar, Text } from "@chakra-ui/react";
 import NavbarLink from "./NavbarLink";
 import logo from "../../assets/logo-est-hotel-pro.png";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/auth";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const navigateToHome = () => {
     navigate("/");
@@ -41,7 +43,7 @@ const Navbar = () => {
           <NavbarLink to={"/reservation"}>{"Réservation"}</NavbarLink>
           <NavbarLink to={"/hotelRoom"}>{"Chambre"}</NavbarLink>
           <NavbarLink to={"/login"}>
-            <Avatar size="xs" />
+            <Avatar size="xs" name={user?.name} />
           </NavbarLink>
         </div>
       </div>

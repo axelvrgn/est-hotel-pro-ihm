@@ -4,6 +4,8 @@ import { Container, SimpleGrid } from "@chakra-ui/react";
 import { ReservationService } from "../../services/ReservationService";
 import ReservationItem from "./ReservationItem";
 import ReservationDetailedModal from "./ReservationDetailedModal";
+import { useAuth } from "../../contexts/auth";
+import { useToasts } from "../../contexts/toast";
 
 // const reservationsTest: Reservation[] = [
 //   {
@@ -46,14 +48,26 @@ const ReservationList = () => {
 
   const [isDetailedModalOpen, setIsDetailedModalOpen] = useState(false);
 
+  const { user } = useAuth();
+  const { pushToast } = useToasts();
+
   useEffect(() => {
     fetchReservations();
   }, []);
 
   const fetchReservations = () => {
-    ReservationService.getAllReservations().then((reservationsRes) => {
-      setReservations(reservationsRes.data);
-    });
+    if (user) {
+      ReservationService.getAllReservations(user.token)
+        .then((reservationsRes) => {
+          setReservations(reservationsRes.data);
+        })
+        .catch(() =>
+          pushToast({
+            content: "Erreur lors de la récupération des réservations",
+            state: "ERROR",
+          })
+        );
+    }
   };
 
   const openDetailedModal = (reservation: Reservation) => {
@@ -83,6 +97,7 @@ const ReservationList = () => {
           <SimpleGrid gap={"1.5rem"}>
             {reservations.map((reservation) => (
               <ReservationItem
+                key={reservation.id}
                 reservation={reservation}
                 openDetailedModal={openDetailedModal}
               />

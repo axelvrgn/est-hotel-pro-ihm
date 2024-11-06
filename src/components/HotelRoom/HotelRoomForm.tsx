@@ -36,9 +36,13 @@ const hotelRoomFormValidationSchema = yup.object().shape({
 
 type HotelRoomFormProps = {
   submitFunction: (values: HotelRoom) => void;
+  formIsSubmitting: boolean;
 };
 
-const HotelRoomForm = ({ submitFunction }: HotelRoomFormProps) => {
+const HotelRoomForm = ({
+  submitFunction,
+  formIsSubmitting,
+}: HotelRoomFormProps) => {
   const {
     handleSubmit,
     register,
@@ -105,7 +109,12 @@ const HotelRoomForm = ({ submitFunction }: HotelRoomFormProps) => {
         </CustomFormControl>
       </div>
       <Spacer height={"20px"} />
-      <Button type="submit" colorScheme="primary" isDisabled={!isValid}>
+      <Button
+        type="submit"
+        colorScheme="primary"
+        isDisabled={!isValid}
+        isLoading={formIsSubmitting}
+      >
         {ENREGISTRER}
       </Button>
     </form>

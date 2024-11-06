@@ -5,29 +5,32 @@ import { Reservation } from "../../interfaces/Reservation";
 import { ReservationService } from "../../services/ReservationService";
 import { useState } from "react";
 import { useToasts } from "../../contexts/toast";
+import { useAuth } from "../../contexts/auth";
 
 const ReservationCreationView = () => {
   const [formIsSubmitting, setFormIsSubmitting] = useState<boolean>(false);
 
   const { pushToast } = useToasts();
+  const { user } = useAuth();
 
   const createReservation = (newReservation: Reservation) => {
-    setFormIsSubmitting(true);
-    ReservationService.createReservation(newReservation)
-      .then(() => {
-        console.log("ok");
-        pushToast({
-          state: "SUCCESS",
-          content: "Réservation créée avec succès",
-        });
-      })
-      .catch(() =>
-        pushToast({
-          state: "ERROR",
-          content: "Erreur lors de la création de la réservation",
+    if (user) {
+      setFormIsSubmitting(true);
+      ReservationService.createReservation(user.token, newReservation)
+        .then(() => {
+          pushToast({
+            state: "SUCCESS",
+            content: "Nouvelle réservation créée avec succès",
+          });
         })
-      )
-      .finally(() => setFormIsSubmitting(false));
+        .catch(() =>
+          pushToast({
+            state: "ERROR",
+            content: "Erreur lors de la création de la réservation",
+          })
+        )
+        .finally(() => setFormIsSubmitting(false));
+    }
   };
 
   return (

@@ -4,6 +4,8 @@ import { HotelRoom } from "../../interfaces/HotelRoom";
 import { HotelRoomService } from "../../services/HotelRoomService";
 import HotelRoomItem from "./HotelRoomItem";
 import HotelRoomDetailedModal from "./HotelRoomDetailedModal";
+import { useAuth } from "../../contexts/auth";
+import { useToasts } from "../../contexts/toast";
 
 // const hotelRoomsTest: HotelRoom[] = [
 //   {
@@ -31,14 +33,24 @@ const HotelRoomList = () => {
 
   const [isDetailedModalOpen, setIsDetailedModalOpen] = useState(false);
 
+  const { user } = useAuth();
+  const { pushToast } = useToasts();
+
   useEffect(() => {
     fetchHotelRooms();
   }, []);
 
   const fetchHotelRooms = () => {
-    HotelRoomService.getAllRooms().then((hotelRoomsRes) =>
-      setHotelRooms(hotelRoomsRes.data)
-    );
+    if (user) {
+      HotelRoomService.getAllRooms(user.token)
+        .then((hotelRoomsRes) => setHotelRooms(hotelRoomsRes.data))
+        .catch(() =>
+          pushToast({
+            content: "Erreur lors de la récupération des chambres",
+            state: "ERROR",
+          })
+        );
+    }
   };
 
   const openDetailedModal = (hotelRoom: HotelRoom) => {
@@ -68,6 +80,7 @@ const HotelRoomList = () => {
           <SimpleGrid gap={"1.5rem"}>
             {hotelRooms.map((hotelRoom) => (
               <HotelRoomItem
+                key={hotelRoom.id}
                 hotelRoom={hotelRoom}
                 openDetailedModal={openDetailedModal}
               />

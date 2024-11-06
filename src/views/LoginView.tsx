@@ -5,11 +5,19 @@ import { useState } from "react";
 import { AuthService } from "../services/AuthService";
 import { Login } from "../interfaces/Login";
 import { useAuth } from "../contexts/auth";
+import { useNavigate } from "react-router-dom";
+import { useToasts } from "../contexts/toast";
 
 const LoginView = () => {
   const [formIsSubmitting, setFormIsSubmitting] = useState(false);
 
   const { addAuth } = useAuth();
+  const { pushToast } = useToasts();
+  const navigate = useNavigate();
+
+  const navigateToHome = () => {
+    navigate("/");
+  };
 
   const login = (login: Login) => {
     setFormIsSubmitting(true);
@@ -17,8 +25,15 @@ const LoginView = () => {
     AuthService.login(login)
       .then((userRes) => {
         addAuth(userRes.data);
+        navigateToHome();
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.error(err);
+        pushToast({
+          content: "Erreur lors de la connexion",
+          state: "ERROR",
+        });
+      })
       .finally(() => setFormIsSubmitting(false));
   };
   return (
