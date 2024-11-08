@@ -42,9 +42,13 @@ const Navbar = () => {
         <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
           <NavbarLink to={"/reservation"}>{"Réservation"}</NavbarLink>
           <NavbarLink to={"/hotelRoom"}>{"Chambre"}</NavbarLink>
-          <NavbarLink to={"/login"}>
-            <Avatar size="xs" name={user?.name} />
-          </NavbarLink>
+          {user ? (
+            <NavbarLink to={"/account"}>
+              <Avatar size="xs" name={user?.name} />
+            </NavbarLink>
+          ) : (
+            <NavbarLink to={"/login"}>{"Connexion"}</NavbarLink>
+          )}
         </div>
       </div>
     </div>
