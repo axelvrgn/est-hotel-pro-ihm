@@ -3,7 +3,10 @@ import { Login, User } from "../interfaces/Login";
 
 //attention <User> est différent du LoginResponse
 const login = async (login: Login) => {
-  return axios.post<User>("/v1/hotel-rooms", login);
+  return axios.post<User>(
+    "http://localhost:8085/ede-api/v1/accounts/login",
+    login
+  );
 };
 
 export const AuthService = { login };

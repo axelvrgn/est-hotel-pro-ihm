@@ -16,7 +16,7 @@ type AuthProviderProps = {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(() => {
-    const user_from_storage = localStorage.getItem("ehp_user");
+    const user_from_storage = sessionStorage.getItem("ehp_user");
     try {
       return user_from_storage ? JSON.parse(user_from_storage) : null;
     } catch (error) {
@@ -26,8 +26,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   });
 
   const addAuth = (user: User) => {
-    sessionStorage.setItem("ehp_user", JSON.stringify(user));
-    setUser(user);
+    const userWithoutPassword = { name: user.name, token: user.token };
+    sessionStorage.setItem("ehp_user", JSON.stringify(userWithoutPassword));
+    setUser(userWithoutPassword);
   };
 
   const removeAuth = () => {
