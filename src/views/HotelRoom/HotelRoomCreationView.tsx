@@ -6,6 +6,7 @@ import { HotelRoomService } from "../../services/HotelRoomService";
 import { useAuth } from "../../contexts/auth";
 import { useToasts } from "../../contexts/toast";
 import { useState } from "react";
+import { FormMode } from "../../helpers/FormUtils";
 
 const HotelRoomCreationView = () => {
   const [formIsSubmitting, setFormIsSubmitting] = useState<boolean>(false);
@@ -42,6 +43,7 @@ const HotelRoomCreationView = () => {
         <HotelRoomForm
           submitFunction={addReservation}
           formIsSubmitting={formIsSubmitting}
+          formMode={FormMode.CREATION}
         />
       </Box>
     </PageContainer>

@@ -6,6 +6,7 @@ import { ReservationService } from "../../services/ReservationService";
 import { useState } from "react";
 import { useToasts } from "../../contexts/toast";
 import { useAuth } from "../../contexts/auth";
+import { FormMode } from "../../helpers/FormUtils";
 
 const ReservationCreationView = () => {
   const [formIsSubmitting, setFormIsSubmitting] = useState<boolean>(false);
@@ -42,6 +43,7 @@ const ReservationCreationView = () => {
       <ReservationForm
         submitFunction={createReservation}
         formIsSubmitting={formIsSubmitting}
+        formMode={FormMode.CREATION}
       />
     </PageContainer>
   );
