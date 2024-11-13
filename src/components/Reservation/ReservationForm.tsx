@@ -9,9 +9,15 @@ import {
 } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CHAMP_OBLIGATOIRE, DZD, ENREGISTRER } from "../../data/constants";
+import {
+  CHAMP_OBLIGATOIRE,
+  DZD,
+  ENREGISTRER,
+  METTRE_A_JOUR,
+} from "../../data/constants";
 import CustomTextArea from "../Form/CustomTextArea";
 import { Reservation, UserSnapShot } from "../../interfaces/Reservation";
+import { FormMode } from "../../helpers/FormUtils";
 interface IReservationFormValues {
   userName: string;
   userFirstName: string;
@@ -57,15 +63,16 @@ const reservationFormValidationSchema = yup.object().shape({
 type ReservationFormProps = {
   submitFunction: (newReservation: Reservation) => void;
   formIsSubmitting: boolean;
+  formMode: FormMode;
+  reservation?: Reservation;
 };
 
 const ReservationForm = ({
   submitFunction,
   formIsSubmitting,
+  formMode,
+  reservation,
 }: ReservationFormProps) => {
-  const today = new Date();
-  const tomorrow = new Date(today.getDate() + 1);
-
   const {
     handleSubmit,
     register,
@@ -74,8 +81,18 @@ const ReservationForm = ({
     mode: "onChange",
     resolver: yupResolver(reservationFormValidationSchema),
     defaultValues: {
-      startDate: today.toDateString(),
-      endDate: tomorrow.toString(),
+      ...(reservation && {
+        userName: reservation.userSnapShot.name,
+        userFirstName: reservation.userSnapShot.firstName,
+        userNumberPhone: reservation.userSnapShot.numberPhone,
+        startDate: reservation.startDate,
+        endDate: reservation.endDate,
+        claim: reservation.claim,
+        numberOfAdults: reservation.numberOfAdults,
+        numberOfChildren: reservation.numberOfChildren,
+        pricePaid: reservation.pricePaid,
+        review: reservation.review,
+      }),
     },
   });
 
@@ -185,7 +202,7 @@ const ReservationForm = ({
         isDisabled={!isValid}
         isLoading={formIsSubmitting}
       >
-        {ENREGISTRER}
+        {formMode === FormMode.CREATION ? ENREGISTRER : METTRE_A_JOUR}
       </Button>
     </form>
   );

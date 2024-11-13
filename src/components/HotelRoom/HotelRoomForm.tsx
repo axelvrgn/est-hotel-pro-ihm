@@ -9,10 +9,16 @@ import {
 } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CHAMP_OBLIGATOIRE, DZD, ENREGISTRER } from "../../data/constants";
+import {
+  CHAMP_OBLIGATOIRE,
+  DZD,
+  ENREGISTRER,
+  METTRE_A_JOUR,
+} from "../../data/constants";
 import CustomSelect from "../Form/CustomSelect";
 import { CATEGORIES_ROOM } from "../../data/HotelRoom";
-import { HotelRoom } from "../../interfaces/HotelRoom";
+import { CategoryRoom, HotelRoom } from "../../interfaces/HotelRoom";
+import { FormMode } from "../../helpers/FormUtils";
 
 interface IHotelRoomFormValues {
   roomNumber: number;
@@ -37,11 +43,15 @@ const hotelRoomFormValidationSchema = yup.object().shape({
 type HotelRoomFormProps = {
   submitFunction: (values: HotelRoom) => void;
   formIsSubmitting: boolean;
+  formMode: FormMode;
+  hotelRoom?: HotelRoom;
 };
 
 const HotelRoomForm = ({
   submitFunction,
   formIsSubmitting,
+  formMode,
+  hotelRoom,
 }: HotelRoomFormProps) => {
   const {
     handleSubmit,
@@ -50,6 +60,14 @@ const HotelRoomForm = ({
   } = useForm<IHotelRoomFormValues>({
     mode: "onChange",
     resolver: yupResolver(hotelRoomFormValidationSchema),
+    defaultValues: {
+      ...(hotelRoom && {
+        roomNumber: hotelRoom.roomNumber,
+        price: hotelRoom.price,
+        categoryRoom: CategoryRoom[hotelRoom.category],
+        state: hotelRoom.state,
+      }),
+    },
   });
 
   const onSubmit = (values: IHotelRoomFormValues) => {
@@ -115,7 +133,7 @@ const HotelRoomForm = ({
         isDisabled={!isValid}
         isLoading={formIsSubmitting}
       >
-        {ENREGISTRER}
+        {formMode === FormMode.CREATION ? ENREGISTRER : METTRE_A_JOUR}
       </Button>
     </form>
   );

@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CHAMP_OBLIGATOIRE } from "../../data/constants";
 import { Login } from "../../interfaces/Login";
-import PasswordInput from "./PasswordInput";
+import PasswordInput from "../Form/PasswordInput";
 
 interface ILoginFormValues {
   identifiant: string;
