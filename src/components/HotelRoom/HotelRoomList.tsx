@@ -29,7 +29,7 @@ const HotelRoomList = () => {
   const [hotelRoomsAreLoading, setHotelRoomsAreLoading] =
     useState<boolean>(false);
 
-  const [selectedHotelRoom, setSelectedHotelRoom] = useState<HotelRoom | null>(
+  const [selectedHotelRoomId, setSelectedHotelRoomId] = useState<string | null>(
     null
   );
 
@@ -58,20 +58,20 @@ const HotelRoomList = () => {
   };
 
   const openDetailedModal = (hotelRoom: HotelRoom) => {
-    setSelectedHotelRoom(hotelRoom);
+    setSelectedHotelRoomId(hotelRoom.id);
     setIsDetailedModalOpen(true);
   };
 
   const closeModal = () => {
     setIsDetailedModalOpen(false);
-    setSelectedHotelRoom(null);
+    setSelectedHotelRoomId(null);
   };
 
   return (
     <>
-      {selectedHotelRoom && (
+      {selectedHotelRoomId && (
         <HotelRoomDetailedModal
-          hotelRoom={selectedHotelRoom}
+          hotelRoomId={selectedHotelRoomId}
           isOpen={isDetailedModalOpen}
           onClose={closeModal}
         />

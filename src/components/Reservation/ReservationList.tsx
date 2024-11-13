@@ -45,8 +45,9 @@ const ReservationList = () => {
   const [reservationsAreLoading, setReservationsAreLoading] =
     useState<boolean>(false);
 
-  const [selectedReservation, setSelectedReservation] =
-    useState<Reservation | null>(null);
+  const [selectedReservationId, setSelectedReservationId] = useState<
+    string | null
+  >(null);
 
   const [isDetailedModalOpen, setIsDetailedModalOpen] = useState(false);
 
@@ -75,20 +76,20 @@ const ReservationList = () => {
   };
 
   const openDetailedModal = (reservation: Reservation) => {
-    setSelectedReservation(reservation);
+    setSelectedReservationId(reservation.id);
     setIsDetailedModalOpen(true);
   };
 
   const closeModal = () => {
     setIsDetailedModalOpen(false);
-    setSelectedReservation(null);
+    setSelectedReservationId(null);
   };
 
   return (
     <>
-      {selectedReservation && (
+      {selectedReservationId && (
         <ReservationDetailedModal
-          reservation={selectedReservation}
+          reservationId={selectedReservationId}
           isOpen={isDetailedModalOpen}
           onClose={closeModal}
         />

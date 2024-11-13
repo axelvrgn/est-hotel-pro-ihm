@@ -5,34 +5,68 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Spinner,
   Text,
 } from "@chakra-ui/react";
 import { CategoryRoom, HotelRoom } from "../../interfaces/HotelRoom";
+import { HotelRoomService } from "../../services/HotelRoomService";
+import { useAuth } from "../../contexts/auth";
+import { useEffect, useState } from "react";
 
 type HotelRoomDetailedModalProps = {
-  hotelRoom: HotelRoom;
+  hotelRoomId: string;
   isOpen: boolean;
   onClose: () => void;
 };
 
 const HotelRoomDetailedModal = ({
-  hotelRoom,
+  hotelRoomId,
   isOpen,
   onClose,
 }: HotelRoomDetailedModalProps) => {
+  const [hotelRoom, setHotelRoom] = useState<HotelRoom | null>(null);
+  const [hotelRoomIsLoading, setHotelRoomIsLoading] = useState<boolean>(false);
+
+  const { user } = useAuth();
+
+  useEffect(() => {
+    fetchHotelRoom();
+  }, [hotelRoomId]);
+
+  const fetchHotelRoom = () => {
+    if (user) {
+      setHotelRoomIsLoading(true);
+      HotelRoomService.getRoomById(user.token, hotelRoomId)
+        .then((hotelRoomRes) => setHotelRoom(hotelRoomRes.data))
+        .finally(() => setHotelRoomIsLoading(false));
+    }
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{`Chambre n°${hotelRoom.roomNumber}`}</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <div>
-            <Text>{`Statut : ${hotelRoom.state}`}</Text>
-            <Text>{`Catégorie : ${CategoryRoom[hotelRoom.category]}`}</Text>
-            <Text>{`Prix : ${hotelRoom.price} DZD`}</Text>
-          </div>
-        </ModalBody>
+        {hotelRoomIsLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            {hotelRoom && (
+              <>
+                <ModalHeader>{`Chambre n°${hotelRoom.roomNumber}`}</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  <div>
+                    <Text>{`Statut : ${hotelRoom.state}`}</Text>
+                    <Text>{`Catégorie : ${
+                      CategoryRoom[hotelRoom.category]
+                    }`}</Text>
+                    <Text>{`Prix : ${hotelRoom.price} DZD`}</Text>
+                  </div>
+                </ModalBody>
+              </>
+            )}
+          </>
+        )}
       </ModalContent>
     </Modal>
   );
