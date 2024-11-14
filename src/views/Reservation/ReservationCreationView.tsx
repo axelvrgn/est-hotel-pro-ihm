@@ -1,7 +1,7 @@
 import { Heading } from "@chakra-ui/react";
 import ReservationForm from "../../components/Reservation/ReservationForm";
 import PageContainer from "../../layout/PageContainer";
-import { Reservation } from "../../interfaces/Reservation";
+import { CreateReservation } from "../../interfaces/Reservation";
 import { ReservationService } from "../../services/ReservationService";
 import { useState } from "react";
 import { useToasts } from "../../contexts/toast";
@@ -14,7 +14,7 @@ const ReservationCreationView = () => {
   const { pushToast } = useToasts();
   const { user } = useAuth();
 
-  const createReservation = (newReservation: Reservation) => {
+  const createReservation = (newReservation: CreateReservation) => {
     if (user) {
       setFormIsSubmitting(true);
       ReservationService.createReservation(user.token, newReservation)

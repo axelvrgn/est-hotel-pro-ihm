@@ -1,18 +1,15 @@
 import axios from "axios";
-import { Reservation } from "../interfaces/Reservation";
+import { CreateReservation, Reservation } from "../interfaces/Reservation";
 
 const getReservationById = async (token: string, reservationId: string) => {
-  return axios.get<Reservation>(
-    "http://localhost:8085/ede-api/v1/reservations",
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      params: {
-        id: reservationId,
-      },
-    }
-  );
+  return axios.get("http://localhost:8085/ede-api/v1/reservations", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params: {
+      id: reservationId,
+    },
+  });
 };
 
 const getAllReservations = async (token: string) => {
@@ -28,7 +25,7 @@ const getAllReservations = async (token: string) => {
 
 const createReservation = async (
   token: string,
-  newReservation: Reservation
+  newReservation: CreateReservation
 ) => {
   return axios.post(
     "http://localhost:8085/ede-api/v1/reservations",
@@ -41,8 +38,20 @@ const createReservation = async (
   );
 };
 
+const deleteReservation = async (token: string, reservationId: string) => {
+  return axios.delete("http://localhost:8085/ede-api/v1/reservations", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params: {
+      id: reservationId,
+    },
+  });
+};
+
 export const ReservationService = {
   getReservationById,
   getAllReservations,
   createReservation,
+  deleteReservation,
 };

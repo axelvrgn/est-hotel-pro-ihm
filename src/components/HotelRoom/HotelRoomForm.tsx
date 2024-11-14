@@ -17,7 +17,7 @@ import {
 } from "../../data/constants";
 import CustomSelect from "../Form/CustomSelect";
 import { CATEGORIES_ROOM } from "../../data/HotelRoom";
-import { CategoryRoom, HotelRoom } from "../../interfaces/HotelRoom";
+import { HotelRoom } from "../../interfaces/HotelRoom";
 import { FormMode } from "../../helpers/FormUtils";
 
 interface IHotelRoomFormValues {
@@ -64,7 +64,7 @@ const HotelRoomForm = ({
       ...(hotelRoom && {
         roomNumber: hotelRoom.roomNumber,
         price: hotelRoom.price,
-        categoryRoom: CategoryRoom[hotelRoom.category],
+        categoryRoom: hotelRoom.category.toString(),
         state: hotelRoom.state,
       }),
     },

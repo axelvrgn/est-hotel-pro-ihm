@@ -16,8 +16,13 @@ import {
   METTRE_A_JOUR,
 } from "../../data/constants";
 import CustomTextArea from "../Form/CustomTextArea";
-import { Reservation, UserSnapShot } from "../../interfaces/Reservation";
+import {
+  CreateReservation,
+  Reservation,
+  UserSnapshot,
+} from "../../interfaces/Reservation";
 import { FormMode } from "../../helpers/FormUtils";
+
 interface IReservationFormValues {
   userName: string;
   userFirstName: string;
@@ -61,7 +66,7 @@ const reservationFormValidationSchema = yup.object().shape({
 });
 
 type ReservationFormProps = {
-  submitFunction: (newReservation: Reservation) => void;
+  submitFunction: (newReservation: CreateReservation) => void;
   formIsSubmitting: boolean;
   formMode: FormMode;
   reservation?: Reservation;
@@ -82,9 +87,9 @@ const ReservationForm = ({
     resolver: yupResolver(reservationFormValidationSchema),
     defaultValues: {
       ...(reservation && {
-        userName: reservation.userSnapShot.name,
-        userFirstName: reservation.userSnapShot.firstName,
-        userNumberPhone: reservation.userSnapShot.numberPhone,
+        userName: reservation.userSnapshot.name,
+        userFirstName: reservation.userSnapshot.firstName,
+        userNumberPhone: reservation.userSnapshot.numberPhone,
         startDate: reservation.startDate,
         endDate: reservation.endDate,
         claim: reservation.claim,
@@ -97,17 +102,19 @@ const ReservationForm = ({
   });
 
   const onSubmit = (values: IReservationFormValues) => {
-    const reservationUser: UserSnapShot = {
+    const reservationUser: UserSnapshot = {
       name: values.userName,
       firstName: values.userFirstName,
       numberPhone: values.userNumberPhone,
     };
+    const startDate = new Date(values.startDate);
+    const endDate = new Date(values.endDate);
 
-    const newReservation: Reservation = {
-      id: "reservation-" + Math.random().toString(),
-      userSnapShot: reservationUser,
-      startDate: values.startDate,
-      endDate: values.endDate,
+    const newReservation: CreateReservation = {
+      roomId: "5d0d290c-adcb-4014-ba9e-5e60aaffb92b",
+      userSnapshot: reservationUser,
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
       claim: values.claim,
       numberOfChildren: values.numberOfChildren,
       numberOfAdults: values.numberOfAdults,

@@ -30,9 +30,9 @@ const ReservationItem = ({
       <CardBody>
         <Grid templateColumns={"repeat(2, 1fr)"}>
           <GridItem>
-            <Text>{`${reservation.userSnapShot.firstName} ${reservation.userSnapShot.name}`}</Text>
+            <Text>{`${reservation.userSnapshot.firstName} ${reservation.userSnapshot.name}`}</Text>
             <div>
-              <Text>{`(${reservation.userSnapShot.numberPhone})`}</Text>
+              <Text>{`(${reservation.userSnapshot.numberPhone})`}</Text>
             </div>
           </GridItem>
           <GridItem>
