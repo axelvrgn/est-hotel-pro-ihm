@@ -7,39 +7,6 @@ import ReservationDetailedModal from "./ReservationDetailedModal";
 import { useAuth } from "../../contexts/auth";
 import { useToasts } from "../../contexts/toast";
 
-// const reservationsTest: Reservation[] = [
-//   {
-//     id: "1",
-//     userSnapShot: {
-//       name: "Doe",
-//       firstName: "John",
-//       numberPhone: "0606060606",
-//     },
-//     startDate: "2021-10-10",
-//     endDate: "2021-10-15",
-//     claim: "Claim 1",
-//     numberOfChildren: 2,
-//     numberOfAdults: 2,
-//     pricePaid: 1000,
-//     review: 4,
-//   },
-//   {
-//     id: "2",
-//     userSnapShot: {
-//       name: "Doe",
-//       firstName: "Jane",
-//       numberPhone: "0606060606",
-//     },
-//     startDate: "2021-10-10",
-//     endDate: "2021-10-15",
-//     claim: "Claim 2",
-//     numberOfChildren: 2,
-//     numberOfAdults: 2,
-//     pricePaid: 1000,
-//     review: 5,
-//   },
-// ];
-
 const ReservationList = () => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [reservationsAreLoading, setReservationsAreLoading] =
@@ -83,6 +50,7 @@ const ReservationList = () => {
   const closeModal = () => {
     setIsDetailedModalOpen(false);
     setSelectedReservationId(null);
+    fetchReservations();
   };
 
   return (

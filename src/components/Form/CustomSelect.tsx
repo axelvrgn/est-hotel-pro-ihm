@@ -21,7 +21,9 @@ const CustomSelect = ({
       focusBorderColor="primary.300"
     >
       {options.map((option) => (
-        <option value={option}>{option}</option>
+        <option value={option} key={option}>
+          {option}
+        </option>
       ))}
     </Select>
   );

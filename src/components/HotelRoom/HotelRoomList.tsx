@@ -7,23 +7,6 @@ import HotelRoomDetailedModal from "./HotelRoomDetailedModal";
 import { useAuth } from "../../contexts/auth";
 import { useToasts } from "../../contexts/toast";
 
-// const hotelRoomsTest: HotelRoom[] = [
-//   {
-//     id: "room1",
-//     roomNumber: 1,
-//     price: 1000,
-//     category: CategoryRoom.GRAND_LIT_CONFORT,
-//     state: "Disponible",
-//   },
-//   {
-//     id: "room2",
-//     roomNumber: 2,
-//     price: 2000,
-//     category: CategoryRoom.TRIPLE_LIT_STANDARD,
-//     state: "Disponible",
-//   },
-// ];
-
 const HotelRoomList = () => {
   const [hotelRooms, setHotelRooms] = useState<HotelRoom[]>([]);
   const [hotelRoomsAreLoading, setHotelRoomsAreLoading] =
@@ -65,6 +48,7 @@ const HotelRoomList = () => {
   const closeModal = () => {
     setIsDetailedModalOpen(false);
     setSelectedHotelRoomId(null);
+    fetchHotelRooms();
   };
 
   return (

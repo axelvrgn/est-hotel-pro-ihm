@@ -8,9 +8,8 @@ import {
   ModalOverlay,
   Spacer,
   Spinner,
-  Text,
 } from "@chakra-ui/react";
-import { CategoryRoom, HotelRoom } from "../../interfaces/HotelRoom";
+import { HotelRoom } from "../../interfaces/HotelRoom";
 import { HotelRoomService } from "../../services/HotelRoomService";
 import { useAuth } from "../../contexts/auth";
 import { useEffect, useState } from "react";
@@ -49,8 +48,23 @@ const HotelRoomDetailedModal = ({
     }
   };
 
-  const updateRoom = () => {
-    return null;
+  const updateRoom = (updatedRoom: HotelRoom) => {
+    if (user) {
+      HotelRoomService.updateRoom(user.token, hotelRoomId, updatedRoom)
+        .then(() => {
+          pushToast({
+            content: "Chambre modifiée avec succès",
+            state: "SUCCESS",
+          });
+          onClose();
+        })
+        .catch(() => {
+          pushToast({
+            content: "Erreur lors de la modification de la chambre",
+            state: "ERROR",
+          });
+        });
+    }
   };
 
   const deleteRoom = () => {

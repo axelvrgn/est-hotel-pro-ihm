@@ -39,14 +39,14 @@ const createReservation = async (
 };
 
 const deleteReservation = async (token: string, reservationId: string) => {
-  return axios.delete("http://localhost:8085/ede-api/v1/reservations", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    params: {
-      id: reservationId,
-    },
-  });
+  return axios.delete(
+    `http://localhost:8085/ede-api/v1/reservations/${reservationId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 };
 
 export const ReservationService = {

@@ -31,20 +31,37 @@ const createRoom = async (token: string, newRoom: HotelRoom) => {
   });
 };
 
+const updateRoom = async (
+  token: string,
+  roomId: string,
+  updatedRoom: HotelRoom
+) => {
+  return axios.put(
+    `http://localhost:8085/ede-api/v1/hotel-rooms/${roomId}`,
+    updatedRoom,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
 const deleteRoom = async (token: string, roomId: string) => {
-  return axios.delete("http://localhost:8085/ede-api/v1/hotel-rooms", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    params: {
-      id: roomId,
-    },
-  });
+  return axios.delete(
+    `http://localhost:8085/ede-api/v1/hotel-rooms/${roomId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 };
 
 export const HotelRoomService = {
   getRoomById,
   getAllRooms,
   createRoom,
+  updateRoom,
   deleteRoom,
 };
