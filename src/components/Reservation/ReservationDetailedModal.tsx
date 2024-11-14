@@ -12,6 +12,8 @@ import { Reservation } from "../../interfaces/Reservation";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/auth";
 import { ReservationService } from "../../services/ReservationService";
+import ReservationForm from "./ReservationForm";
+import { FormMode } from "../../helpers/FormUtils";
 
 type ReservationDetailedModalProps = {
   reservationId: string;
@@ -43,6 +45,8 @@ const ReservationDetailedModal = ({
     }
   };
 
+  const updateReservation = () => {};
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -56,6 +60,12 @@ const ReservationDetailedModal = ({
                 <ModalHeader>{`Réservation n°${reservation.id}`}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
+                  <ReservationForm
+                    submitFunction={updateReservation}
+                    formIsSubmitting={false}
+                    formMode={FormMode.MODIFICATION}
+                    reservation={reservation}
+                  />
                   <div>
                     <Text>{`Client(e) : ${reservation.userSnapShot.firstName} ${reservation.userSnapShot.name}`}</Text>
                     <Text>{`Tel : ${reservation.userSnapShot.numberPhone}`}</Text>

@@ -12,6 +12,8 @@ import { CategoryRoom, HotelRoom } from "../../interfaces/HotelRoom";
 import { HotelRoomService } from "../../services/HotelRoomService";
 import { useAuth } from "../../contexts/auth";
 import { useEffect, useState } from "react";
+import HotelRoomForm from "./HotelRoomForm";
+import { FormMode } from "../../helpers/FormUtils";
 
 type HotelRoomDetailedModalProps = {
   hotelRoomId: string;
@@ -42,6 +44,10 @@ const HotelRoomDetailedModal = ({
     }
   };
 
+  const updateRoom = () => {
+    return null;
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -55,6 +61,12 @@ const HotelRoomDetailedModal = ({
                 <ModalHeader>{`Chambre n°${hotelRoom.roomNumber}`}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
+                  <HotelRoomForm
+                    submitFunction={updateRoom}
+                    formIsSubmitting={false}
+                    formMode={FormMode.MODIFICATION}
+                    hotelRoom={hotelRoom}
+                  />
                   <div>
                     <Text>{`Statut : ${hotelRoom.state}`}</Text>
                     <Text>{`Catégorie : ${
