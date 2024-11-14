@@ -5,7 +5,7 @@ import { Button, Spacer } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CHAMP_OBLIGATOIRE } from "../../data/constants";
-import { Account } from "../../interfaces/Account";
+import { CreateAccount } from "../../interfaces/Account";
 import PasswordInput from "../Form/PasswordInput";
 
 interface IRegisterFormValues {
@@ -23,7 +23,7 @@ const registerFormValidationSchema = yup.object().shape({
 });
 
 type RegisterFormProps = {
-  submitFunction: (account: Account) => void;
+  submitFunction: (account: CreateAccount) => void;
   formIsSubmitting: boolean;
 };
 
@@ -34,6 +34,7 @@ const RegisterForm = ({
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors, isValid },
   } = useForm<IRegisterFormValues>({
     mode: "onChange",
@@ -41,13 +42,14 @@ const RegisterForm = ({
   });
 
   const onSubmit = (values: IRegisterFormValues) => {
-    const account: Account = {
+    const account: CreateAccount = {
       name: values.name,
       firstName: values.firstName,
       phoneNumber: values.phoneNumber,
       password: values.password,
     };
     submitFunction(account);
+    reset();
   };
 
   return (

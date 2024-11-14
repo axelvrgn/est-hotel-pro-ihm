@@ -3,6 +3,7 @@ import NavbarLink from "./NavbarLink";
 import logo from "../../assets/logo-est-hotel-pro.png";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/auth";
+import { ADMIN_ROLE } from "../../data/constants";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -42,9 +43,12 @@ const Navbar = () => {
         <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
           <NavbarLink to={"/reservation"}>{"Réservation"}</NavbarLink>
           <NavbarLink to={"/hotelRoom"}>{"Chambre"}</NavbarLink>
+          {user?.accountResponse.role === ADMIN_ROLE && (
+            <NavbarLink to={"/register"}>{"Administration"}</NavbarLink>
+          )}
           {user ? (
             <NavbarLink to={"/account"}>
-              <Avatar size="xs" name={user?.name} />
+              <Avatar size="xs" name={user?.accountResponse.firstName} />
             </NavbarLink>
           ) : (
             <NavbarLink to={"/login"}>{"Connexion"}</NavbarLink>

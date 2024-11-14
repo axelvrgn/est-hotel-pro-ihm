@@ -4,34 +4,40 @@ import { useState } from "react";
 import { AuthService } from "../services/AuthService";
 import { useToasts } from "../contexts/toast";
 import RegisterForm from "../components/Register/RegisterForm";
-import { Account } from "../interfaces/Account";
+import { CreateAccount } from "../interfaces/Account";
+import { useAuth } from "../contexts/auth";
 
 const RegisterView = () => {
   const [formIsSubmitting, setFormIsSubmitting] = useState(false);
 
   const { pushToast } = useToasts();
+  const { user } = useAuth();
 
-  const register = (account: Account) => {
-    setFormIsSubmitting(true);
+  const register = (newAccount: CreateAccount) => {
+    if (user) {
+      setFormIsSubmitting(true);
 
-    AuthService.createAccount(account)
-      .then((userRes) => {
-        console.log(userRes);
-      })
-      .catch((err) => {
-        console.error(err);
-        pushToast({
-          content: "Erreur lors de l'enregistrement du nouveau compte",
-          state: "ERROR",
-        });
-      })
-      .finally(() => setFormIsSubmitting(false));
+      AuthService.createAccount(user.token, newAccount)
+        .then(() => {
+          pushToast({
+            content: "Utilisateur ajouté avec succès",
+            state: "SUCCESS",
+          });
+        })
+        .catch(() => {
+          pushToast({
+            content: "Erreur lors de l'enregistrement du nouveau compte",
+            state: "ERROR",
+          });
+        })
+        .finally(() => setFormIsSubmitting(false));
+    }
   };
   return (
     <PageContainer>
       <Box maxWidth={"380px"} style={{ margin: "auto" }}>
         <Heading as="h3" size="lg" textAlign={"center"}>
-          {"Connexion"}
+          {"Création d'un compte"}
         </Heading>
         <Spacer h={6} />
         <RegisterForm

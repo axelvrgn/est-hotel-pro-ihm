@@ -1,10 +1,10 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
-import { User } from "../interfaces/Login";
+import { LoginResponse } from "../interfaces/Login";
 
 type AuthType = {
-  user: User | null;
-  addAuth: (user: User) => void;
+  user: LoginResponse | null;
+  addAuth: (user: LoginResponse) => void;
   removeAuth: () => void;
 };
 
@@ -15,7 +15,7 @@ type AuthProviderProps = {
 };
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<User | null>(() => {
+  const [user, setUser] = useState<LoginResponse | null>(() => {
     const user_from_storage = sessionStorage.getItem("ehp_user");
     try {
       return user_from_storage ? JSON.parse(user_from_storage) : null;
@@ -25,10 +25,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   });
 
-  const addAuth = (user: User) => {
-    const userWithoutPassword = { name: user.name, token: user.token };
-    sessionStorage.setItem("ehp_user", JSON.stringify(userWithoutPassword));
-    setUser(userWithoutPassword);
+  const addAuth = (user: LoginResponse) => {
+    sessionStorage.setItem("ehp_user", JSON.stringify(user));
+    setUser(user);
   };
 
   const removeAuth = () => {

@@ -7,23 +7,26 @@ import { useAuth } from "../../contexts/auth";
 import { useToasts } from "../../contexts/toast";
 import { useState } from "react";
 import { FormMode } from "../../helpers/FormUtils";
+import { useNavigate } from "react-router-dom";
 
 const HotelRoomCreationView = () => {
   const [formIsSubmitting, setFormIsSubmitting] = useState<boolean>(false);
 
   const { pushToast } = useToasts();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const addReservation = (newHotelRoom: HotelRoom) => {
     if (user) {
       setFormIsSubmitting(true);
       HotelRoomService.createRoom(user.token, newHotelRoom)
-        .then(() =>
+        .then(() => {
           pushToast({
             content: "Nouvelle chambre créée avec succès",
             state: "SUCCESS",
-          })
-        )
+          });
+          navigate("/hotelRoom");
+        })
         .catch(() =>
           pushToast({
             content: "Erreur lors de la création de la chambre",

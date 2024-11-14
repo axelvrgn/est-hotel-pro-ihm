@@ -7,12 +7,14 @@ import { useState } from "react";
 import { useToasts } from "../../contexts/toast";
 import { useAuth } from "../../contexts/auth";
 import { FormMode } from "../../helpers/FormUtils";
+import { useNavigate } from "react-router-dom";
 
 const ReservationCreationView = () => {
   const [formIsSubmitting, setFormIsSubmitting] = useState<boolean>(false);
 
   const { pushToast } = useToasts();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const createReservation = (newReservation: CreateReservation) => {
     if (user) {
@@ -23,6 +25,7 @@ const ReservationCreationView = () => {
             state: "SUCCESS",
             content: "Nouvelle réservation créée avec succès",
           });
+          navigate("/reservation");
         })
         .catch(() =>
           pushToast({

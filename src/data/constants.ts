@@ -8,3 +8,5 @@ export const DZD = "DZD";
 export const INFO = "INFO";
 
 export const DATE_FORMAT = "DD/MM/yyyy";
+
+export const ADMIN_ROLE = "ADMIN";

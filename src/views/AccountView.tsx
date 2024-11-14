@@ -8,8 +8,9 @@ const AccountView = () => {
   if (user == null) return null;
   return (
     <PageContainer>
-      <Heading>{"Profil"}</Heading>
-      <Text>{user.name}</Text>
+      <Heading>{`Profil ${user.accountResponse.role}`}</Heading>
+      <Text>{`${user.accountResponse.firstName} ${user.accountResponse.name}`}</Text>
+      <Text>{user.accountResponse.phoneNumber}</Text>
       <Button onClick={removeAuth} alignSelf={"flex-end"} colorScheme="primary">
         {"Déconnexion"}
       </Button>

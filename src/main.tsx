@@ -15,6 +15,8 @@ import { ToastContextProvider } from "./contexts/toast.tsx";
 import { AuthProvider } from "./contexts/auth.tsx";
 import PrivateRoute from "./components/Router/PrivateRoute.tsx";
 import AccountView from "./views/AccountView.tsx";
+import UnauthorizedView from "./views/UnauthorizedView.tsx";
+import RegisterView from "./views/RegisterView.tsx";
 
 const colors = {
   primary: {
@@ -90,6 +92,18 @@ const router = createBrowserRouter([
             <AccountView />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "Register",
+        element: (
+          <PrivateRoute>
+            <RegisterView />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "unauthorized",
+        element: <UnauthorizedView />,
       },
       {
         path: "*",
