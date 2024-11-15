@@ -1,13 +1,10 @@
 import axios from "axios";
-import { HotelRoom } from "../interfaces/HotelRoom";
+import { CreateHotelRoom, HotelRoom } from "../interfaces/HotelRoom";
 
 const getRoomById = async (token: string, roomId: string) => {
-  return axios.get("http://localhost:8085/ede-api/v1/hotel-rooms", {
+  return axios.get(`http://localhost:8085/ede-api/v1/hotel-rooms/${roomId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
-    },
-    params: {
-      id: roomId,
     },
   });
 };
@@ -23,7 +20,7 @@ const getAllRooms = async (token: string) => {
   );
 };
 
-const createRoom = async (token: string, newRoom: HotelRoom) => {
+const createRoom = async (token: string, newRoom: CreateHotelRoom) => {
   return axios.post("http://localhost:8085/ede-api/v1/hotel-rooms", newRoom, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -34,7 +31,7 @@ const createRoom = async (token: string, newRoom: HotelRoom) => {
 const updateRoom = async (
   token: string,
   roomId: string,
-  updatedRoom: HotelRoom
+  updatedRoom: CreateHotelRoom
 ) => {
   return axios.put(
     `http://localhost:8085/ede-api/v1/hotel-rooms/${roomId}`,

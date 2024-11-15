@@ -4,12 +4,12 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  Grid,
-  GridItem,
+  Flex,
   Heading,
-  Text,
+  Tag,
 } from "@chakra-ui/react";
-import { CategoryRoom, HotelRoom } from "../../interfaces/HotelRoom";
+import { HotelRoom } from "../../interfaces/HotelRoom";
+import { CATEGORY_ROOM_LABELS } from "../../data/HotelRoom";
 
 type HotelRoomItemProps = {
   hotelRoom: HotelRoom;
@@ -23,17 +23,18 @@ const HotelRoomItem = ({
   return (
     <Card size={"sm"}>
       <CardHeader>
-        <Heading size="md">{`Chambre n°${hotelRoom.roomNumber}`}</Heading>
+        <Heading size="md">{`Chambre n°${hotelRoom.roomNumber}`} </Heading>
+        {hotelRoom.available ? (
+          <Tag colorScheme="green">{"Libre"}</Tag>
+        ) : (
+          <Tag>{"Réservée"}</Tag>
+        )}
       </CardHeader>
       <CardBody>
-        <Grid templateColumns={"repeat(2, 1fr)"}>
-          <GridItem>
-            <Text>{`${hotelRoom.state}`}</Text>
-          </GridItem>
-          <GridItem>
-            <Text>{`${CategoryRoom[hotelRoom.category]}`}</Text>
-          </GridItem>
-        </Grid>
+        <Flex gap={"0.8rem"}>
+          <Tag>{`${CATEGORY_ROOM_LABELS[hotelRoom.category]}`}</Tag>
+          <Tag>{`${hotelRoom.price} DZD`}</Tag>
+        </Flex>
       </CardBody>
       <CardFooter>
         <Button

@@ -1,3 +1,5 @@
+import { HotelRoom } from "./HotelRoom";
+
 export interface UserSnapshot {
   name: string;
   firstName: string;
@@ -19,6 +21,7 @@ export interface CreateReservation {
 export interface Reservation {
   id: string;
   userSnapshot: UserSnapshot;
+  hotelRoom: HotelRoom;
   startDate: string;
   endDate: string;
   claim: string;

@@ -1,7 +1,7 @@
 import { Box, Heading, Spacer } from "@chakra-ui/react";
 import HotelRoomForm from "../../components/HotelRoom/HotelRoomForm";
 import PageContainer from "../../layout/PageContainer";
-import { HotelRoom } from "../../interfaces/HotelRoom";
+import { CreateHotelRoom } from "../../interfaces/HotelRoom";
 import { HotelRoomService } from "../../services/HotelRoomService";
 import { useAuth } from "../../contexts/auth";
 import { useToasts } from "../../contexts/toast";
@@ -16,7 +16,7 @@ const HotelRoomCreationView = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const addReservation = (newHotelRoom: HotelRoom) => {
+  const addReservation = (newHotelRoom: CreateHotelRoom) => {
     if (user) {
       setFormIsSubmitting(true);
       HotelRoomService.createRoom(user.token, newHotelRoom)

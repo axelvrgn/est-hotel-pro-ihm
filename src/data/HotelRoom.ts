@@ -9,3 +9,15 @@ export const CATEGORIES_ROOM = [
   "VILLA",
   "VILLA_VIP",
 ];
+
+export const CATEGORY_ROOM_LABELS: { [key: string]: string } = {
+  GRAND_LIT_CONFORT: "Grand lit confort",
+  DOUBLE_LIT_CONFORT: "Double lit confort",
+  TRIPE_LIT_CONFORT: "Triple lit confort",
+  QUADRUPLE_LIT_CONFORT: "Quadruple lit confort",
+  TRIPLE_LIT_STANDARD: "Triple lit standard",
+  CHALET_T3: "Chalet T3",
+  CELIBATORIUM: "Célibatorium",
+  VILLA: "Villa",
+  VILLA_VIP: "Villa VIP",
+};

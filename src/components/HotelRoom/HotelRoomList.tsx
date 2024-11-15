@@ -53,7 +53,7 @@ const HotelRoomList = () => {
 
   return (
     <>
-      {selectedHotelRoomId && (
+      {selectedHotelRoomId && isDetailedModalOpen && (
         <HotelRoomDetailedModal
           hotelRoomId={selectedHotelRoomId}
           isOpen={isDetailedModalOpen}

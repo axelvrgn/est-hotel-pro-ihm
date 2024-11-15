@@ -17,7 +17,7 @@ import {
 } from "../../data/constants";
 import CustomSelect from "../Form/CustomSelect";
 import { CATEGORIES_ROOM } from "../../data/HotelRoom";
-import { HotelRoom } from "../../interfaces/HotelRoom";
+import { CreateHotelRoom, HotelRoom } from "../../interfaces/HotelRoom";
 import { FormMode } from "../../helpers/FormUtils";
 
 interface IHotelRoomFormValues {
@@ -41,7 +41,7 @@ const hotelRoomFormValidationSchema = yup.object().shape({
 });
 
 type HotelRoomFormProps = {
-  submitFunction: (values: HotelRoom) => void;
+  submitFunction: (values: CreateHotelRoom) => void;
   formIsSubmitting: boolean;
   formMode: FormMode;
   hotelRoom?: HotelRoom;
@@ -71,7 +71,7 @@ const HotelRoomForm = ({
   });
 
   const onSubmit = (values: IHotelRoomFormValues) => {
-    const newHotelRoom: HotelRoom = {
+    const newHotelRoom: CreateHotelRoom = {
       id: values.roomNumber.toString(),
       roomNumber: values.roomNumber,
       price: values.price,

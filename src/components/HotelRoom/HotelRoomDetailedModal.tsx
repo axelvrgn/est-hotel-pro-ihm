@@ -9,7 +9,7 @@ import {
   Spacer,
   Spinner,
 } from "@chakra-ui/react";
-import { HotelRoom } from "../../interfaces/HotelRoom";
+import { CreateHotelRoom, HotelRoom } from "../../interfaces/HotelRoom";
 import { HotelRoomService } from "../../services/HotelRoomService";
 import { useAuth } from "../../contexts/auth";
 import { useEffect, useState } from "react";
@@ -43,12 +43,12 @@ const HotelRoomDetailedModal = ({
     if (user) {
       setHotelRoomIsLoading(true);
       HotelRoomService.getRoomById(user.token, hotelRoomId)
-        .then((hotelRoomRes) => setHotelRoom(hotelRoomRes.data[0]))
+        .then((hotelRoomRes) => setHotelRoom(hotelRoomRes.data))
         .finally(() => setHotelRoomIsLoading(false));
     }
   };
 
-  const updateRoom = (updatedRoom: HotelRoom) => {
+  const updateRoom = (updatedRoom: CreateHotelRoom) => {
     if (user) {
       HotelRoomService.updateRoom(user.token, hotelRoomId, updatedRoom)
         .then(() => {

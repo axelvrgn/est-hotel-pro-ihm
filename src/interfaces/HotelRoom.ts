@@ -10,10 +10,19 @@ export enum CategoryRoom {
   VILLA_VIP,
 }
 
+export interface CreateHotelRoom {
+  id: string;
+  roomNumber: number;
+  price: number;
+  category: CategoryRoom;
+  state: string;
+}
+
 export interface HotelRoom {
   id: string;
   roomNumber: number;
   price: number;
   category: CategoryRoom;
   state: string;
+  available: boolean;
 }

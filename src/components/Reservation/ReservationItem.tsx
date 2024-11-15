@@ -4,10 +4,9 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  Grid,
-  GridItem,
+  Flex,
   Heading,
-  Text,
+  Tag,
 } from "@chakra-ui/react";
 import { Reservation } from "../../interfaces/Reservation";
 import moment from "moment";
@@ -25,22 +24,19 @@ const ReservationItem = ({
   return (
     <Card size={"sm"}>
       <CardHeader>
-        <Heading size="md">{`Réservation n°${reservation.id}`}</Heading>
+        <Heading size="md">{`Réservation de ${reservation.userSnapshot.name} ${reservation.userSnapshot.firstName}`}</Heading>
       </CardHeader>
       <CardBody>
-        <Grid templateColumns={"repeat(2, 1fr)"}>
-          <GridItem>
-            <Text>{`${reservation.userSnapshot.firstName} ${reservation.userSnapshot.name}`}</Text>
-            <div>
-              <Text>{`(${reservation.userSnapshot.numberPhone})`}</Text>
-            </div>
-          </GridItem>
-          <GridItem>
-            <Text>{`du ${moment(reservation.startDate).format(
-              DATE_FORMAT
-            )} au ${moment(reservation.endDate).format(DATE_FORMAT)}`}</Text>
-          </GridItem>
-        </Grid>
+        <Flex flexWrap={"wrap"} gap={"0.8rem"}>
+          <Tag>{`${moment(reservation.startDate).format(
+            DATE_FORMAT
+          )} - ${moment(reservation.endDate).format(DATE_FORMAT)}`}</Tag>
+          <Tag>{`${reservation.hotelRoom.category}`}</Tag>
+          <Tag>{`Adulte(s): ${reservation.numberOfAdults}`}</Tag>
+          {reservation.numberOfChildren > 0 && (
+            <Tag>{`Enfant(s): ${reservation.numberOfChildren}`}</Tag>
+          )}
+        </Flex>
       </CardBody>
       <CardFooter>
         <Button
