@@ -1,16 +1,30 @@
 import { useEffect, useState } from "react";
-import { Container, SimpleGrid, Spinner, Text } from "@chakra-ui/react";
+import {
+  Container,
+  Divider,
+  SimpleGrid,
+  Spacer,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 import { HotelRoom } from "../../interfaces/HotelRoom";
 import { HotelRoomService } from "../../services/HotelRoomService";
 import HotelRoomItem from "./HotelRoomItem";
 import HotelRoomDetailedModal from "./HotelRoomDetailedModal";
 import { useAuth } from "../../contexts/auth";
 import { useToasts } from "../../contexts/toast";
+import HotelRoomFilters, { SelectedHotelRoomFilters } from "./HotelRoomFilters";
 
 const HotelRoomList = () => {
   const [hotelRooms, setHotelRooms] = useState<HotelRoom[]>([]);
   const [hotelRoomsAreLoading, setHotelRoomsAreLoading] =
     useState<boolean>(false);
+
+  const [selectedHotelRoomFilters, setSelectedHotelRoomFilters] =
+    useState<SelectedHotelRoomFilters>({
+      categoryRoom: "",
+      isAvailable: false,
+    });
 
   const [selectedHotelRoomId, setSelectedHotelRoomId] = useState<string | null>(
     null
@@ -25,10 +39,51 @@ const HotelRoomList = () => {
     fetchHotelRooms();
   }, []);
 
+  useEffect(() => {
+    fetchAvailableHotelRooms();
+  }, [selectedHotelRoomFilters.isAvailable]);
+
+  useEffect(() => {
+    fetchHotelRoomsByCategory();
+  }, [selectedHotelRoomFilters.categoryRoom]);
+
   const fetchHotelRooms = () => {
     if (user) {
       setHotelRoomsAreLoading(true);
       HotelRoomService.getAllRooms(user.token)
+        .then((hotelRoomsRes) => setHotelRooms(hotelRoomsRes.data))
+        .catch(() =>
+          pushToast({
+            content: "Erreur lors de la récupération des chambres",
+            state: "ERROR",
+          })
+        )
+        .finally(() => setHotelRoomsAreLoading(false));
+    }
+  };
+
+  const fetchAvailableHotelRooms = () => {
+    if (user) {
+      setHotelRoomsAreLoading(true);
+      HotelRoomService.getAllAvailableRooms(user.token)
+        .then((hotelRoomsRes) => setHotelRooms(hotelRoomsRes.data))
+        .catch(() =>
+          pushToast({
+            content: "Erreur lors de la récupération des chambres",
+            state: "ERROR",
+          })
+        )
+        .finally(() => setHotelRoomsAreLoading(false));
+    }
+  };
+
+  const fetchHotelRoomsByCategory = () => {
+    if (user) {
+      setHotelRoomsAreLoading(true);
+      HotelRoomService.getAllRoomsByCategory(
+        user.token,
+        selectedHotelRoomFilters.categoryRoom
+      )
         .then((hotelRoomsRes) => setHotelRooms(hotelRoomsRes.data))
         .catch(() =>
           pushToast({
@@ -51,6 +106,10 @@ const HotelRoomList = () => {
     fetchHotelRooms();
   };
 
+  const applyFilters = (filters: SelectedHotelRoomFilters) => {
+    setSelectedHotelRoomFilters(filters);
+  };
+
   return (
     <>
       {selectedHotelRoomId && isDetailedModalOpen && (
@@ -60,8 +119,15 @@ const HotelRoomList = () => {
           onClose={closeModal}
         />
       )}
+      <Container>
+        <HotelRoomFilters sendFilters={applyFilters} />
+      </Container>
+
+      <Spacer h={6} />
 
       <Container>
+        <Divider />
+        <Spacer h={6} />
         {hotelRoomsAreLoading ? (
           <Spinner />
         ) : (

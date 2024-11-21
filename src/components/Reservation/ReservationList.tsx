@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { Reservation } from "../../interfaces/Reservation";
-import { Container, SimpleGrid, Spinner, Text } from "@chakra-ui/react";
+import {
+  Container,
+  Divider,
+  SimpleGrid,
+  Spacer,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 import { ReservationService } from "../../services/ReservationService";
 import ReservationItem from "./ReservationItem";
 import ReservationDetailedModal from "./ReservationDetailedModal";
@@ -64,6 +71,8 @@ const ReservationList = () => {
       )}
 
       <Container>
+        <Divider />
+        <Spacer h={6} />
         {reservationsAreLoading ? (
           <Spinner />
         ) : (
