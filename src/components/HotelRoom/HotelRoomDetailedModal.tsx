@@ -73,7 +73,7 @@ const HotelRoomDetailedModal = ({
       HotelRoomService.deleteRoom(user.token, hotelRoomId)
         .then(() => {
           pushToast({
-            content: "Chambre supprimée avec succès",
+            content: `Chambre n°${hotelRoomId} supprimée avec succès`,
             state: "SUCCESS",
           });
           onClose();

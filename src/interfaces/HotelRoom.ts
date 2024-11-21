@@ -18,6 +18,7 @@ export interface CreateHotelRoom {
   price: number;
   category: CategoryRoom;
   state: string;
+  imageUrl: String;
 }
 
 export interface HotelRoom {

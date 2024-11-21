@@ -90,18 +90,18 @@ const ReservationDetailedModal = ({
   };
 
   const deleteReservation = () => {
-    if (user) {
+    if (user && reservation) {
       ReservationService.deleteReservation(user.token, reservationId)
         .then(() => {
           pushToast({
-            content: "Chambre supprimée avec succès",
+            content: `Réservation de ${reservation.userSnapshot.firstName} ${reservation.userSnapshot.name} supprimée avec succès`,
             state: "SUCCESS",
           });
           onClose();
         })
         .catch(() => {
           pushToast({
-            content: "Erreur lors de la suppression de la chambre",
+            content: "Erreur lors de la suppression de la réservation",
             state: "ERROR",
           });
         });

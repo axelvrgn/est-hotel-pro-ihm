@@ -5,6 +5,7 @@ import {
   Button,
   InputGroup,
   InputRightElement,
+  Select,
   Spacer,
 } from "@chakra-ui/react";
 import * as yup from "yup";
@@ -15,8 +16,7 @@ import {
   ENREGISTRER,
   METTRE_A_JOUR,
 } from "../../data/constants";
-import CustomSelect from "../Form/CustomSelect";
-import { CATEGORIES_ROOM } from "../../data/HotelRoom";
+import { CATEGORIES_ROOM, CATEGORY_ROOM_LABELS } from "../../data/HotelRoom";
 import { CreateHotelRoom, HotelRoom } from "../../interfaces/HotelRoom";
 import { FormMode } from "../../helpers/FormUtils";
 
@@ -24,6 +24,7 @@ interface IHotelRoomFormValues {
   roomNumber: number;
   price: number;
   categoryRoom: string;
+  imageUrl?: string;
 }
 
 const hotelRoomFormValidationSchema = yup.object().shape({
@@ -36,6 +37,7 @@ const hotelRoomFormValidationSchema = yup.object().shape({
     .required(CHAMP_OBLIGATOIRE)
     .transform((val) => (val === Number(val) ? val : null)),
   categoryRoom: yup.string().required(CHAMP_OBLIGATOIRE),
+  imageUrl: yup.string().optional(),
 });
 
 type HotelRoomFormProps = {
@@ -64,6 +66,7 @@ const HotelRoomForm = ({
         price: hotelRoom.price,
         categoryRoom: hotelRoom.category.toString(),
         state: hotelRoom.state,
+        imageUrl: hotelRoom.imageUrl,
       }),
     },
   });
@@ -75,6 +78,7 @@ const HotelRoomForm = ({
       price: values.price,
       category: values.categoryRoom as any,
       state: "",
+      imageUrl: values.imageUrl ?? "",
     };
 
     submitFunction(newHotelRoom);
@@ -95,6 +99,17 @@ const HotelRoomForm = ({
             disabled={formMode === FormMode.MODIFICATION}
           />
         </CustomFormControl>
+        <CustomFormControl
+          label={"Photo de la chambre"}
+          errorField={errors.imageUrl}
+        >
+          <CustomInput
+            type="text"
+            name="imageUrl"
+            register={register}
+            placeholder="Saisir une url"
+          />
+        </CustomFormControl>
         <CustomFormControl label={"Prix"} errorField={errors.price}>
           <InputGroup>
             <CustomInput
@@ -109,12 +124,17 @@ const HotelRoomForm = ({
           </InputGroup>
         </CustomFormControl>
         <CustomFormControl label="Catégorie" errorField={errors.categoryRoom}>
-          <CustomSelect
-            name="categoryRoom"
-            register={register}
-            placeholder="Sélectionner une catégorie"
-            options={CATEGORIES_ROOM}
-          />
+          <Select
+            {...register("categoryRoom")}
+            placeholder={"Sélectionner une catégorie"}
+            focusBorderColor="primary.300"
+          >
+            {CATEGORIES_ROOM.map((category) => (
+              <option value={category} key={category}>
+                {CATEGORY_ROOM_LABELS[category]}
+              </option>
+            ))}
+          </Select>
         </CustomFormControl>
       </div>
       <Spacer height={"20px"} />
