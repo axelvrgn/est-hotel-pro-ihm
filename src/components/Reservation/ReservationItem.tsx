@@ -11,6 +11,8 @@ import {
 import { Reservation } from "../../interfaces/Reservation";
 import moment from "moment";
 import { DATE_FORMAT } from "../../data/constants";
+import { CATEGORY_ROOM_LABELS } from "../../data/HotelRoom";
+import { RESERVATION_STATUS_LABELS } from "../../data/Reservation";
 
 type ReservationItemProps = {
   reservation: Reservation;
@@ -28,10 +30,11 @@ const ReservationItem = ({
       </CardHeader>
       <CardBody>
         <Flex flexWrap={"wrap"} gap={"0.8rem"}>
+          <Tag>{`${RESERVATION_STATUS_LABELS[reservation.status]}`}</Tag>
           <Tag>{`${moment(reservation.startDate).format(
             DATE_FORMAT
           )} - ${moment(reservation.endDate).format(DATE_FORMAT)}`}</Tag>
-          <Tag>{`${reservation.hotelRoom.category}`}</Tag>
+          <Tag>{`${CATEGORY_ROOM_LABELS[reservation.hotelRoom.category]}`}</Tag>
           <Tag>{`Adulte(s): ${reservation.numberOfAdults}`}</Tag>
           {reservation.numberOfChildren > 0 && (
             <Tag>{`Enfant(s): ${reservation.numberOfChildren}`}</Tag>

@@ -38,6 +38,22 @@ const createReservation = async (
   );
 };
 
+const updateReservation = async (
+  token: string,
+  reservationId: string,
+  updatedReservation: CreateReservation
+) => {
+  return axios.put(
+    `http://localhost:8085/ede-api/v1/reservations/${reservationId}`,
+    updatedReservation,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
 const deleteReservation = async (token: string, reservationId: string) => {
   return axios.delete(
     `http://localhost:8085/ede-api/v1/reservations/${reservationId}`,
@@ -53,5 +69,6 @@ export const ReservationService = {
   getReservationById,
   getAllReservations,
   createReservation,
+  updateReservation,
   deleteReservation,
 };

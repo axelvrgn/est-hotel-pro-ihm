@@ -10,7 +10,7 @@ import {
   Spinner,
   Image,
 } from "@chakra-ui/react";
-import { Reservation } from "../../interfaces/Reservation";
+import { CreateReservation, Reservation } from "../../interfaces/Reservation";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/auth";
 import { ReservationService } from "../../services/ReservationService";
@@ -66,7 +66,28 @@ const ReservationDetailedModal = ({
     }
   };
 
-  const updateReservation = () => {};
+  const updateReservation = (updatedReservation: CreateReservation) => {
+    if (user) {
+      ReservationService.updateReservation(
+        user.token,
+        reservationId,
+        updatedReservation
+      )
+        .then(() => {
+          pushToast({
+            content: "Réservation modifiée avec succès",
+            state: "SUCCESS",
+          });
+          onClose();
+        })
+        .catch(() => {
+          pushToast({
+            content: "Erreur lors de la modification de la réservation",
+            state: "ERROR",
+          });
+        });
+    }
+  };
 
   const deleteReservation = () => {
     if (user) {

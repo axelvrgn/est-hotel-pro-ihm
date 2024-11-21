@@ -1,5 +1,11 @@
 import { HotelRoom } from "./HotelRoom";
 
+export enum ReservationStatus {
+  COMING,
+  IN_PROGRESS,
+  ENDED
+}
+
 export interface UserSnapshot {
   name: string;
   firstName: string;
@@ -29,4 +35,5 @@ export interface Reservation {
   numberOfAdults: number;
   pricePaid: number;
   review: number;
+  status: ReservationStatus; 
 }
