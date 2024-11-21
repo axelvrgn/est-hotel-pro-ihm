@@ -8,6 +8,7 @@ import {
   ModalOverlay,
   Spacer,
   Spinner,
+  Image,
 } from "@chakra-ui/react";
 import { CreateHotelRoom, HotelRoom } from "../../interfaces/HotelRoom";
 import { HotelRoomService } from "../../services/HotelRoomService";
@@ -99,6 +100,8 @@ const HotelRoomDetailedModal = ({
                 <ModalHeader>{`Chambre n°${hotelRoom.roomNumber}`}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
+                  <Image src={hotelRoom.imageUrl} borderRadius="sm" />
+                  <Spacer h={6} />
                   <div style={{ display: "flex", justifyContent: "flex-end" }}>
                     <Button
                       leftIcon={<DeleteIcon />}

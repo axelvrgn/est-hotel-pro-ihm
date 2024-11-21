@@ -7,6 +7,7 @@ import {
   Flex,
   Heading,
   Tag,
+  Image,
 } from "@chakra-ui/react";
 import { HotelRoom } from "../../interfaces/HotelRoom";
 import { CATEGORY_ROOM_LABELS } from "../../data/HotelRoom";
@@ -22,6 +23,7 @@ const HotelRoomItem = ({
 }: HotelRoomItemProps) => {
   return (
     <Card size={"sm"}>
+      <Image src={hotelRoom.imageUrl} borderRadius="sm" />
       <CardHeader>
         <Heading size="md">{`Chambre n°${hotelRoom.roomNumber}`} </Heading>
         {hotelRoom.available ? (

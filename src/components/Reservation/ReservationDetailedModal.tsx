@@ -8,6 +8,7 @@ import {
   ModalOverlay,
   Spacer,
   Spinner,
+  Image,
 } from "@chakra-ui/react";
 import { Reservation } from "../../interfaces/Reservation";
 import { useEffect, useState } from "react";
@@ -17,6 +18,8 @@ import ReservationForm from "./ReservationForm";
 import { FormMode } from "../../helpers/FormUtils";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useToasts } from "../../contexts/toast";
+import { HotelRoom } from "../../interfaces/HotelRoom";
+import { HotelRoomService } from "../../services/HotelRoomService";
 
 type ReservationDetailedModalProps = {
   reservationId: string;
@@ -33,8 +36,14 @@ const ReservationDetailedModal = ({
   const [reservationIsLoading, setReservationIsLoading] =
     useState<boolean>(false);
 
+  const [hotelRooms, setHotelRooms] = useState<HotelRoom[]>([]);
+
   const { user } = useAuth();
   const { pushToast } = useToasts();
+
+  useEffect(() => {
+    fetchHotelRooms();
+  }, []);
 
   useEffect(() => {
     fetchReservation();
@@ -46,6 +55,14 @@ const ReservationDetailedModal = ({
       ReservationService.getReservationById(user.token, reservationId)
         .then((reservationRes) => setReservation(reservationRes.data[0]))
         .finally(() => setReservationIsLoading(false));
+    }
+  };
+
+  const fetchHotelRooms = () => {
+    if (user) {
+      HotelRoomService.getAllRooms(user.token).then((roomsRes) =>
+        setHotelRooms(roomsRes.data)
+      );
     }
   };
 
@@ -80,9 +97,16 @@ const ReservationDetailedModal = ({
           <>
             {reservation && (
               <>
-                <ModalHeader>{`Réservation n°${reservation.id}`}</ModalHeader>
+                <ModalHeader>{`Réservation de ${reservation.userSnapshot.firstName} ${reservation.userSnapshot.name}`}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
+                  <Image
+                    src={reservation.hotelRoom.imageUrl}
+                    borderRadius="sm"
+                  />
+
+                  <Spacer h={6} />
+
                   <div style={{ display: "flex", justifyContent: "flex-end" }}>
                     <Button
                       leftIcon={<DeleteIcon />}
@@ -100,6 +124,7 @@ const ReservationDetailedModal = ({
                     submitFunction={updateReservation}
                     formIsSubmitting={false}
                     formMode={FormMode.MODIFICATION}
+                    allRooms={hotelRooms}
                     reservation={reservation}
                   />
                 </ModalBody>

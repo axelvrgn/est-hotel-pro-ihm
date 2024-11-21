@@ -1,3 +1,5 @@
+import { Reservation } from "./Reservation";
+
 export enum CategoryRoom {
   GRAND_LIT_CONFORT,
   DOUBLE_LIT_CONFORT,
@@ -25,4 +27,6 @@ export interface HotelRoom {
   category: CategoryRoom;
   state: string;
   available: boolean;
+  imageUrl: string;
+  reservations: Reservation[];
 }

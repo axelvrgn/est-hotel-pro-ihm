@@ -5,6 +5,7 @@ type CustomInputProps = {
   name: Path<FieldValues>;
   type: "text" | "number" | "email" | "password" | "date";
   register: UseFormRegister<any>;
+  disabled?: boolean;
   placeholder?: string;
   min?: number;
 };
@@ -13,6 +14,7 @@ const CustomInput = ({
   name,
   type,
   register,
+  disabled,
   placeholder,
   min,
 }: CustomInputProps) => {
@@ -24,6 +26,7 @@ const CustomInput = ({
       min={min}
       focusBorderColor="primary.300"
       variant={"outline"}
+      isDisabled={disabled}
     />
   );
 };

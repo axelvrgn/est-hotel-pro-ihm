@@ -24,7 +24,6 @@ interface IHotelRoomFormValues {
   roomNumber: number;
   price: number;
   categoryRoom: string;
-  state: string;
 }
 
 const hotelRoomFormValidationSchema = yup.object().shape({
@@ -37,7 +36,6 @@ const hotelRoomFormValidationSchema = yup.object().shape({
     .required(CHAMP_OBLIGATOIRE)
     .transform((val) => (val === Number(val) ? val : null)),
   categoryRoom: yup.string().required(CHAMP_OBLIGATOIRE),
-  state: yup.string().required(CHAMP_OBLIGATOIRE),
 });
 
 type HotelRoomFormProps = {
@@ -76,7 +74,7 @@ const HotelRoomForm = ({
       roomNumber: values.roomNumber,
       price: values.price,
       category: values.categoryRoom as any,
-      state: values.state,
+      state: "",
     };
 
     submitFunction(newHotelRoom);
@@ -94,6 +92,7 @@ const HotelRoomForm = ({
             name="roomNumber"
             register={register}
             min={0}
+            disabled={formMode === FormMode.MODIFICATION}
           />
         </CustomFormControl>
         <CustomFormControl label={"Prix"} errorField={errors.price}>
@@ -117,24 +116,18 @@ const HotelRoomForm = ({
             options={CATEGORIES_ROOM}
           />
         </CustomFormControl>
-        <CustomFormControl label="Statut" errorField={errors.state}>
-          <CustomSelect
-            name="state"
-            register={register}
-            placeholder="Sélectionner un statut"
-            options={["option1", "option2"]}
-          />
-        </CustomFormControl>
       </div>
       <Spacer height={"20px"} />
-      <Button
-        type="submit"
-        colorScheme="primary"
-        isDisabled={!isValid}
-        isLoading={formIsSubmitting}
-      >
-        {formMode === FormMode.CREATION ? ENREGISTRER : METTRE_A_JOUR}
-      </Button>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Button
+          type="submit"
+          colorScheme="primary"
+          isDisabled={!isValid}
+          isLoading={formIsSubmitting}
+        >
+          {formMode === FormMode.CREATION ? ENREGISTRER : METTRE_A_JOUR}
+        </Button>
+      </div>
     </form>
   );
 };

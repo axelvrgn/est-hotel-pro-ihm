@@ -5,6 +5,7 @@ import {
   Button,
   InputGroup,
   InputRightElement,
+  Select,
   Spacer,
 } from "@chakra-ui/react";
 import * as yup from "yup";
@@ -22,11 +23,13 @@ import {
   UserSnapshot,
 } from "../../interfaces/Reservation";
 import { FormMode } from "../../helpers/FormUtils";
+import { HotelRoom } from "../../interfaces/HotelRoom";
 
 interface IReservationFormValues {
   userName: string;
   userFirstName: string;
   userNumberPhone: string;
+  roomId: string;
   startDate: string;
   endDate: string;
   claim: string;
@@ -40,6 +43,7 @@ const reservationFormValidationSchema = yup.object().shape({
   userName: yup.string().required(CHAMP_OBLIGATOIRE),
   userFirstName: yup.string().required(CHAMP_OBLIGATOIRE),
   userNumberPhone: yup.string().required(CHAMP_OBLIGATOIRE),
+  roomId: yup.string().required(CHAMP_OBLIGATOIRE),
   startDate: yup.string().required(CHAMP_OBLIGATOIRE),
   endDate: yup.string().required(CHAMP_OBLIGATOIRE),
   claim: yup.string().required(CHAMP_OBLIGATOIRE),
@@ -69,6 +73,7 @@ type ReservationFormProps = {
   submitFunction: (newReservation: CreateReservation) => void;
   formIsSubmitting: boolean;
   formMode: FormMode;
+  allRooms: HotelRoom[];
   reservation?: Reservation;
 };
 
@@ -76,6 +81,7 @@ const ReservationForm = ({
   submitFunction,
   formIsSubmitting,
   formMode,
+  allRooms,
   reservation,
 }: ReservationFormProps) => {
   const {
@@ -90,6 +96,7 @@ const ReservationForm = ({
         userName: reservation.userSnapshot.name,
         userFirstName: reservation.userSnapshot.firstName,
         userNumberPhone: reservation.userSnapshot.numberPhone,
+        roomId: reservation.hotelRoom.id,
         startDate: reservation.startDate,
         endDate: reservation.endDate,
         claim: reservation.claim,
@@ -111,7 +118,7 @@ const ReservationForm = ({
     const endDate = new Date(values.endDate);
 
     const newReservation: CreateReservation = {
-      roomId: "5d0d290c-adcb-4014-ba9e-5e60aaffb92b",
+      roomId: values.roomId,
       userSnapshot: reservationUser,
       startDate: startDate.toISOString(),
       endDate: endDate.toISOString(),
@@ -143,6 +150,19 @@ const ReservationForm = ({
             />
           </CustomFormControl>
         </div>
+        <CustomFormControl label={"Chambre"} errorField={errors.roomId}>
+          <Select
+            {...register("roomId")}
+            placeholder={"Numéro de chambre"}
+            focusBorderColor="primary.300"
+          >
+            {allRooms.map((room) => (
+              <option value={room.id} key={room.id}>
+                {room.roomNumber}
+              </option>
+            ))}
+          </Select>
+        </CustomFormControl>
         <div style={{ display: "flex", gap: "15px" }}>
           <CustomFormControl label={"Début"} errorField={errors.startDate}>
             <CustomInput type="date" name="startDate" register={register} />
@@ -203,14 +223,16 @@ const ReservationForm = ({
         </CustomFormControl>
       </div>
       <Spacer height={"20px"} />
-      <Button
-        type="submit"
-        colorScheme="primary"
-        isDisabled={!isValid}
-        isLoading={formIsSubmitting}
-      >
-        {formMode === FormMode.CREATION ? ENREGISTRER : METTRE_A_JOUR}
-      </Button>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Button
+          type="submit"
+          colorScheme="primary"
+          isDisabled={!isValid}
+          isLoading={formIsSubmitting}
+        >
+          {formMode === FormMode.CREATION ? ENREGISTRER : METTRE_A_JOUR}
+        </Button>
+      </div>
     </form>
   );
 };

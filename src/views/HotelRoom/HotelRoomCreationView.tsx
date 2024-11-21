@@ -1,4 +1,4 @@
-import { Box, Heading, Spacer } from "@chakra-ui/react";
+import { Heading, Spacer } from "@chakra-ui/react";
 import HotelRoomForm from "../../components/HotelRoom/HotelRoomForm";
 import PageContainer from "../../layout/PageContainer";
 import { CreateHotelRoom } from "../../interfaces/HotelRoom";
@@ -38,17 +38,25 @@ const HotelRoomCreationView = () => {
 
   return (
     <PageContainer>
-      <Heading as="h3" size="lg">
-        {"Nouvelle chambre"}
-      </Heading>
-      <Spacer h={6} />
-      <Box>
-        <HotelRoomForm
-          submitFunction={addReservation}
-          formIsSubmitting={formIsSubmitting}
-          formMode={FormMode.CREATION}
-        />
-      </Box>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <div style={{ width: "750px" }}>
+          <Heading as="h3" size="lg">
+            {"Nouvelle chambre"}
+          </Heading>
+          <Spacer h={6} />
+          <HotelRoomForm
+            submitFunction={addReservation}
+            formIsSubmitting={formIsSubmitting}
+            formMode={FormMode.CREATION}
+          />
+        </div>
+      </div>
     </PageContainer>
   );
 };
