@@ -10,3 +10,5 @@ export const INFO = "INFO";
 export const DATE_FORMAT = "DD/MM/yyyy";
 
 export const ADMIN_ROLE = "ADMIN";
+
+export const API_BASE_URL = "http://www.est-hotel-pro.top";

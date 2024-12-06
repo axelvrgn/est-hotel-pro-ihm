@@ -1,8 +1,9 @@
 import axios from "axios";
 import { CreateHotelRoom, HotelRoom } from "../interfaces/HotelRoom";
+import { API_BASE_URL } from "../data/constants";
 
 const getRoomById = async (token: string, roomId: string) => {
-  return axios.get(`http://localhost:8085/ede-api/v1/hotel-rooms/${roomId}`, {
+  return axios.get(`${API_BASE_URL}/ede-api/v1/hotel-rooms/${roomId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -10,19 +11,16 @@ const getRoomById = async (token: string, roomId: string) => {
 };
 
 const getAllRooms = async (token: string) => {
-  return axios.get<HotelRoom[]>(
-    "http://localhost:8085/ede-api/v1/hotel-rooms",
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  return axios.get<HotelRoom[]>(`${API_BASE_URL}/ede-api/v1/hotel-rooms`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 
 const getAllAvailableRooms = async (token: string) => {
   return axios.get<HotelRoom[]>(
-    "http://localhost:8085/ede-api/v1/hotel-rooms/available",
+    `${API_BASE_URL}/ede-api/v1/hotel-rooms/available`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -33,7 +31,7 @@ const getAllAvailableRooms = async (token: string) => {
 
 const getAllRoomsByCategory = async (token: string, category: string) => {
   return axios.get<HotelRoom[]>(
-    `http://localhost:8085/ede-api/v1/hotel-rooms/category/${category}`,
+    `${API_BASE_URL}/ede-api/v1/hotel-rooms/category/${category}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -43,7 +41,7 @@ const getAllRoomsByCategory = async (token: string, category: string) => {
 };
 
 const createRoom = async (token: string, newRoom: CreateHotelRoom) => {
-  return axios.post("http://localhost:8085/ede-api/v1/hotel-rooms", newRoom, {
+  return axios.post(`${API_BASE_URL}/ede-api/v1/hotel-rooms`, newRoom, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -56,7 +54,7 @@ const updateRoom = async (
   updatedRoom: CreateHotelRoom
 ) => {
   return axios.put(
-    `http://localhost:8085/ede-api/v1/hotel-rooms/${roomId}`,
+    `${API_BASE_URL}/ede-api/v1/hotel-rooms/${roomId}`,
     updatedRoom,
     {
       headers: {
@@ -67,14 +65,11 @@ const updateRoom = async (
 };
 
 const deleteRoom = async (token: string, roomId: string) => {
-  return axios.delete(
-    `http://localhost:8085/ede-api/v1/hotel-rooms/${roomId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  return axios.delete(`${API_BASE_URL}/ede-api/v1/hotel-rooms/${roomId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 
 export const HotelRoomService = {

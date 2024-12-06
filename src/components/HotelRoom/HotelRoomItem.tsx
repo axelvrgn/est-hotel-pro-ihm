@@ -23,16 +23,17 @@ const HotelRoomItem = ({
 }: HotelRoomItemProps) => {
   return (
     <Card size={"sm"}>
-      <Image src={hotelRoom.imageUrl} borderRadius="sm" />
-      <CardHeader>
-        <Heading size="md">{`Chambre n°${hotelRoom.roomNumber}`} </Heading>
-        {hotelRoom.available ? (
-          <Tag colorScheme="green">{"Libre"}</Tag>
-        ) : (
-          <Tag>{"Réservée"}</Tag>
-        )}
-      </CardHeader>
       <CardBody>
+        <Image src={hotelRoom.imageUrl} borderRadius="sm" />
+        <CardHeader>
+          <Heading size="md">{`Chambre n°${hotelRoom.roomNumber}`} </Heading>
+          {hotelRoom.available ? (
+            <Tag colorScheme="green">{"Libre"}</Tag>
+          ) : (
+            <Tag>{"Réservée"}</Tag>
+          )}
+        </CardHeader>
+
         <Flex gap={"0.8rem"}>
           <Tag>{`${CATEGORY_ROOM_LABELS[hotelRoom.category]}`}</Tag>
           <Tag>{`${hotelRoom.price} DZD`}</Tag>
