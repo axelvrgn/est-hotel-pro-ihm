@@ -6,6 +6,7 @@ import {
   CardHeader,
   Flex,
   Heading,
+  Spacer,
   Tag,
 } from "@chakra-ui/react";
 import { Reservation } from "../../interfaces/Reservation";
@@ -30,10 +31,15 @@ const ReservationItem = ({
       </CardHeader>
       <CardBody>
         <Flex flexWrap={"wrap"} gap={"0.8rem"}>
-          <Tag>{`${RESERVATION_STATUS_LABELS[reservation.status]}`}</Tag>
-          <Tag>{`${moment(reservation.startDate).format(
+          <Tag>{`Début ${moment(reservation.startDate).format(
             DATE_FORMAT
-          )} - ${moment(reservation.endDate).format(DATE_FORMAT)}`}</Tag>
+          )}`}</Tag>
+          <Tag>{`Fin ${moment(reservation.endDate).format(DATE_FORMAT)}`}</Tag>
+        </Flex>
+        <Spacer height={"0.8rem"} />
+        <Flex flexWrap={"wrap"} gap={"0.8rem"}>
+          <Tag>{`${RESERVATION_STATUS_LABELS[reservation.status]}`}</Tag>
+
           <Tag>{`${CATEGORY_ROOM_LABELS[reservation.hotelRoom.category]}`}</Tag>
           <Tag>{`Adulte(s): ${reservation.numberOfAdults}`}</Tag>
           {reservation.numberOfChildren > 0 && (
