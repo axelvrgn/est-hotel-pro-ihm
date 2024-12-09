@@ -1,14 +1,13 @@
 import {
+  Avatar,
   Button,
   Card,
   CardBody,
   CardFooter,
-  CardHeader,
   Flex,
   Heading,
-  Tag,
-  TagLabel,
-  TagLeftIcon,
+  SimpleGrid,
+  Spacer,
   Text,
 } from "@chakra-ui/react";
 import PageContainer from "../layout/PageContainer";
@@ -21,32 +20,39 @@ const AccountView = () => {
   if (user == null) return null;
   return (
     <PageContainer>
-      <Card size={"md"}>
-        <CardHeader>
-          <Heading size="md">
-            {`Profil de ${user.accountResponse.firstName} ${user.accountResponse.name}`}
-          </Heading>
-        </CardHeader>
-        <CardBody>
-          <Flex direction={"column"} gap={"1rem"}>
-            <Tag>{`${user.accountResponse.role}`}</Tag>
-            <Tag>
-              <TagLeftIcon boxSize="12px" as={PhoneIcon} />
-              <TagLabel>{`${user.accountResponse.phoneNumber}`}</TagLabel>
-            </Tag>
-          </Flex>
-        </CardBody>
-        <CardFooter>
-          <Button
-            onClick={removeAuth}
-            alignSelf={"flex-end"}
-            colorScheme="red"
-            size={"sm"}
-          >
-            {"Déconnexion"}
-          </Button>
-        </CardFooter>
-      </Card>
+      <Flex justifyContent="center">
+        <Card width="100%" maxWidth="500px">
+          <CardBody>
+            <Flex alignItems="center" gap="1rem">
+              <Avatar name={`${user.accountResponse.firstName}`} />
+              <Heading size="md">
+                {`${user.accountResponse.firstName} ${user.accountResponse.name}`}
+              </Heading>
+            </Flex>
+
+            <Spacer height={"1rem"} />
+
+            <SimpleGrid columns={2} spacing={1} gap={4}>
+              <Text>{"Rôle"}</Text>
+              <Text>{user.accountResponse.role}</Text>
+              <Text>{"Téléphone"}</Text>
+              <Text>
+                <PhoneIcon /> {user.accountResponse.phoneNumber}
+              </Text>
+            </SimpleGrid>
+          </CardBody>
+          <CardFooter justifyContent="center">
+            <Button
+              onClick={removeAuth}
+              alignSelf={"flex-end"}
+              colorScheme="red"
+              size={"sm"}
+            >
+              {"Déconnexion"}
+            </Button>
+          </CardFooter>
+        </Card>
+      </Flex>
     </PageContainer>
   );
 };
