@@ -90,6 +90,7 @@ const HotelRoomForm = ({
         <CustomFormControl
           label={"Numéro de chambre"}
           errorField={errors.roomNumber}
+          isRequired
         >
           <CustomInput
             type="number"
@@ -110,7 +111,7 @@ const HotelRoomForm = ({
             placeholder="Saisir une url"
           />
         </CustomFormControl>
-        <CustomFormControl label={"Prix"} errorField={errors.price}>
+        <CustomFormControl label={"Prix"} errorField={errors.price} isRequired>
           <InputGroup>
             <CustomInput
               type="number"
@@ -123,7 +124,11 @@ const HotelRoomForm = ({
             </InputRightElement>
           </InputGroup>
         </CustomFormControl>
-        <CustomFormControl label="Catégorie" errorField={errors.categoryRoom}>
+        <CustomFormControl
+          label="Catégorie"
+          errorField={errors.categoryRoom}
+          isRequired
+        >
           <Select
             {...register("categoryRoom")}
             placeholder={"Sélectionner une catégorie"}
