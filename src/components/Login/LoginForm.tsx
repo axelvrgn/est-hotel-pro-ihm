@@ -50,7 +50,11 @@ const LoginForm = ({ submitFunction, formIsSubmitting }: LoginFormProps) => {
           gap: "25px",
         }}
       >
-        <CustomFormControl label="Identifiant" errorField={errors.identifiant}>
+        <CustomFormControl
+          label="Identifiant"
+          errorField={errors.identifiant}
+          isRequired
+        >
           <CustomInput
             type="text"
             name="identifiant"
@@ -58,7 +62,11 @@ const LoginForm = ({ submitFunction, formIsSubmitting }: LoginFormProps) => {
             placeholder="Identifiant"
           />
         </CustomFormControl>
-        <CustomFormControl label="Mot de passe" errorField={errors.password}>
+        <CustomFormControl
+          label="Mot de passe"
+          errorField={errors.password}
+          isRequired
+        >
           <PasswordInput
             name="password"
             register={register}

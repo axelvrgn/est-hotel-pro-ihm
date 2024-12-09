@@ -61,7 +61,7 @@ const RegisterForm = ({
           gap: "25px",
         }}
       >
-        <CustomFormControl label="Nom" errorField={errors.name}>
+        <CustomFormControl label="Nom" errorField={errors.name} isRequired>
           <CustomInput
             type="text"
             name="name"
@@ -69,7 +69,11 @@ const RegisterForm = ({
             placeholder="Nom"
           />
         </CustomFormControl>
-        <CustomFormControl label="Prénom" errorField={errors.firstName}>
+        <CustomFormControl
+          label="Prénom"
+          errorField={errors.firstName}
+          isRequired
+        >
           <CustomInput
             type="text"
             name="firstName"
@@ -80,6 +84,7 @@ const RegisterForm = ({
         <CustomFormControl
           label="Numéro de téléphone"
           errorField={errors.phoneNumber}
+          isRequired
         >
           <CustomInput
             type="text"
@@ -88,7 +93,11 @@ const RegisterForm = ({
             placeholder="Numéro de téléphone"
           />
         </CustomFormControl>
-        <CustomFormControl label="Mot de passe" errorField={errors.password}>
+        <CustomFormControl
+          label="Mot de passe"
+          errorField={errors.password}
+          isRequired
+        >
           <PasswordInput
             name="password"
             register={register}
