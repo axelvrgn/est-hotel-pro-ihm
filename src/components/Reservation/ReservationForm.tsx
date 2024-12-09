@@ -32,11 +32,11 @@ interface IReservationFormValues {
   roomId: string;
   startDate: string;
   endDate: string;
-  claim: string;
+  claim?: string;
   numberOfChildren: number;
   numberOfAdults: number;
   pricePaid: number;
-  review: number;
+  review?: number;
 }
 
 const reservationFormValidationSchema = yup.object().shape({
@@ -46,7 +46,7 @@ const reservationFormValidationSchema = yup.object().shape({
   roomId: yup.string().required(CHAMP_OBLIGATOIRE),
   startDate: yup.string().required(CHAMP_OBLIGATOIRE),
   endDate: yup.string().required(CHAMP_OBLIGATOIRE),
-  claim: yup.string().required(CHAMP_OBLIGATOIRE),
+  claim: yup.string().optional(),
   numberOfChildren: yup
     .number()
     .required(CHAMP_OBLIGATOIRE)
@@ -64,7 +64,7 @@ const reservationFormValidationSchema = yup.object().shape({
     .transform((val) => (val === Number(val) ? val : null)),
   review: yup
     .number()
-    .required(CHAMP_OBLIGATOIRE)
+    .optional()
     .min(0)
     .transform((val) => (val === Number(val) ? val : null)),
 });
@@ -97,8 +97,8 @@ const ReservationForm = ({
         userFirstName: reservation.userSnapshot.firstName,
         userNumberPhone: reservation.userSnapshot.numberPhone,
         roomId: reservation.hotelRoom.id,
-        startDate: reservation.startDate,
-        endDate: reservation.endDate,
+        startDate: reservation.startDate.split("T")[0],
+        endDate: reservation.endDate.split("T")[0],
         claim: reservation.claim,
         numberOfAdults: reservation.numberOfAdults,
         numberOfChildren: reservation.numberOfChildren,
@@ -136,13 +136,25 @@ const ReservationForm = ({
     <form onSubmit={handleSubmit(onSubmit)}>
       <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
         <div style={{ display: "flex", gap: "15px" }}>
-          <CustomFormControl label={"Nom"} errorField={errors.startDate}>
+          <CustomFormControl
+            label={"Nom"}
+            errorField={errors.userName}
+            isRequired
+          >
             <CustomInput type="text" name="userName" register={register} />
           </CustomFormControl>
-          <CustomFormControl label={"Prénom"} errorField={errors.startDate}>
+          <CustomFormControl
+            label={"Prénom"}
+            errorField={errors.userFirstName}
+            isRequired
+          >
             <CustomInput type="text" name="userFirstName" register={register} />
           </CustomFormControl>
-          <CustomFormControl label={"Téléphone"} errorField={errors.startDate}>
+          <CustomFormControl
+            label={"Téléphone"}
+            errorField={errors.userNumberPhone}
+            isRequired
+          >
             <CustomInput
               type="text"
               name="userNumberPhone"
@@ -150,7 +162,11 @@ const ReservationForm = ({
             />
           </CustomFormControl>
         </div>
-        <CustomFormControl label={"Chambre"} errorField={errors.roomId}>
+        <CustomFormControl
+          label={"Chambre"}
+          errorField={errors.roomId}
+          isRequired
+        >
           <Select
             {...register("roomId")}
             placeholder={"Numéro de chambre"}
@@ -164,23 +180,38 @@ const ReservationForm = ({
           </Select>
         </CustomFormControl>
         <div style={{ display: "flex", gap: "15px" }}>
-          <CustomFormControl label={"Début"} errorField={errors.startDate}>
-            <CustomInput type="date" name="startDate" register={register} />
+          <CustomFormControl
+            label={"Début"}
+            errorField={errors.startDate}
+            isRequired
+          >
+            <CustomInput
+              type="date"
+              name="startDate"
+              register={register}
+              disabled={formMode === FormMode.MODIFICATION}
+            />
           </CustomFormControl>
-          <CustomFormControl label={"Fin"} errorField={errors.endDate}>
-            <CustomInput type="date" name="endDate" register={register} />
+          <CustomFormControl
+            label={"Fin"}
+            errorField={errors.endDate}
+            isRequired
+          >
+            <CustomInput
+              type="date"
+              name="endDate"
+              register={register}
+              disabled={formMode === FormMode.MODIFICATION}
+            />
           </CustomFormControl>
         </div>
         <CustomFormControl label="Réclamations" errorField={errors.claim}>
-          <CustomTextArea
-            name="claim"
-            register={register}
-            placeholder="Réclamations"
-          />
+          <CustomTextArea name="claim" register={register} />
         </CustomFormControl>
         <CustomFormControl
           label={"Nombre d'enfants"}
           errorField={errors.numberOfChildren}
+          isRequired
         >
           <CustomInput
             type="number"
@@ -192,6 +223,7 @@ const ReservationForm = ({
         <CustomFormControl
           label={"Nombre d'adultes"}
           errorField={errors.numberOfAdults}
+          isRequired
         >
           <CustomInput
             type="number"
@@ -200,7 +232,11 @@ const ReservationForm = ({
             min={0}
           />
         </CustomFormControl>
-        <CustomFormControl label={"Prix"} errorField={errors.pricePaid}>
+        <CustomFormControl
+          label={"Prix"}
+          errorField={errors.pricePaid}
+          isRequired
+        >
           <InputGroup>
             <CustomInput
               type="number"

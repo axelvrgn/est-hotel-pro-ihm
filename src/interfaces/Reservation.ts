@@ -3,7 +3,7 @@ import { HotelRoom } from "./HotelRoom";
 export enum ReservationStatus {
   COMING,
   IN_PROGRESS,
-  ENDED
+  ENDED,
 }
 
 export interface UserSnapshot {
@@ -17,11 +17,11 @@ export interface CreateReservation {
   userSnapshot: UserSnapshot;
   startDate: string;
   endDate: string;
-  claim: string;
+  claim?: string;
   numberOfChildren: number;
   numberOfAdults: number;
   pricePaid: number;
-  review: number;
+  review?: number;
 }
 
 export interface Reservation {
@@ -35,5 +35,5 @@ export interface Reservation {
   numberOfAdults: number;
   pricePaid: number;
   review: number;
-  status: ReservationStatus; 
+  status: ReservationStatus;
 }

@@ -1,4 +1,4 @@
-import { Container, Heading, Spacer } from "@chakra-ui/react";
+import { Heading, Spacer } from "@chakra-ui/react";
 import ReservationForm from "../../components/Reservation/ReservationForm";
 import PageContainer from "../../layout/PageContainer";
 import { CreateReservation } from "../../interfaces/Reservation";
