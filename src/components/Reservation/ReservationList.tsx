@@ -70,7 +70,7 @@ const ReservationList = () => {
         />
       )}
 
-      <Container>
+      <Container maxW={"container.xl"}>
         <Divider />
         <Spacer h={6} />
         {reservationsAreLoading ? (
@@ -80,7 +80,7 @@ const ReservationList = () => {
             {reservations.length === 0 ? (
               <Text>{"Aucune réservation trouvée"}</Text>
             ) : (
-              <SimpleGrid gap={"1.5rem"}>
+              <SimpleGrid columns={3} spacing={6}>
                 {reservations.map((reservation) => (
                   <ReservationItem
                     key={reservation.id}
