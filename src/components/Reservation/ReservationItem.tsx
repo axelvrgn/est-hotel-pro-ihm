@@ -8,6 +8,7 @@ import {
   Heading,
   Spacer,
   Tag,
+  Image,
 } from "@chakra-ui/react";
 import { Reservation } from "../../interfaces/Reservation";
 import moment from "moment";
@@ -30,6 +31,16 @@ const ReservationItem = ({
         <Heading size="md">{`Réservation de ${reservation.userSnapshot.name} ${reservation.userSnapshot.firstName}`}</Heading>
       </CardHeader>
       <CardBody>
+        <Image
+          src={reservation.hotelRoom.imageUrl}
+          borderRadius="sm"
+          width="100%"
+          height="150px"
+          objectFit="cover"
+        />
+
+        <Spacer height={6} />
+
         <Flex flexWrap={"wrap"} gap={"0.8rem"}>
           <Tag>{`Début ${moment(reservation.startDate).format(
             DATE_FORMAT

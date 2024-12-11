@@ -24,7 +24,13 @@ const HotelRoomItem = ({
   return (
     <Card size={"sm"}>
       <CardBody>
-        <Image src={hotelRoom.imageUrl} borderRadius="sm" />
+        <Image
+          src={hotelRoom.imageUrl}
+          borderRadius="sm"
+          width="100%"
+          height="150px"
+          objectFit="cover"
+        />
         <CardHeader display={"flex"} gap="2rem">
           <Heading size="md">{`Chambre n°${hotelRoom.roomNumber}`} </Heading>
           {hotelRoom.available ? (

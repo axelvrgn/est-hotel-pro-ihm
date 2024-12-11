@@ -101,7 +101,7 @@ const HotelRoomList = () => {
       <Divider />
       <Spacer h={6} />
 
-      <Container>
+      <Container maxW={"container.xl"}>
         {hotelRoomsAreLoading ? (
           <Spinner />
         ) : (
@@ -109,7 +109,7 @@ const HotelRoomList = () => {
             {hotelRooms.length === 0 ? (
               <Text>{"Aucune chambre trouvée"}</Text>
             ) : (
-              <SimpleGrid gap={"1.5rem"}>
+              <SimpleGrid columns={3} spacing={6}>
                 {hotelRooms.map((hotelRoom) => (
                   <HotelRoomItem
                     key={hotelRoom.id}
