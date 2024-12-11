@@ -48,7 +48,7 @@ const ReservationDetailedModal = ({
     if (user) {
       setReservationIsLoading(true);
       ReservationService.getReservationById(user.token, reservationId)
-        .then((reservationRes) => setReservation(reservationRes.data[0]))
+        .then((reservationRes) => setReservation(reservationRes.data))
         .finally(() => setReservationIsLoading(false));
     }
   };

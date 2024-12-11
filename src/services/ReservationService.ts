@@ -3,12 +3,9 @@ import { CreateReservation, Reservation } from "../interfaces/Reservation";
 import { API_BASE_URL } from "../data/constants";
 
 const getReservationById = async (token: string, reservationId: string) => {
-  return axios.get(`${API_BASE_URL}/ede-api/v1/reservations`, {
+  return axios.get(`${API_BASE_URL}/ede-api/v1/reservations/${reservationId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
-    },
-    params: {
-      id: reservationId,
     },
   });
 };
