@@ -113,7 +113,11 @@ const HotelRoomForm = ({
             placeholder="Saisir une url"
           />
         </CustomFormControl>
-        <CustomFormControl label={"Prix"} errorField={errors.price} isRequired>
+        <CustomFormControl
+          label={"Prix (par nuit)"}
+          errorField={errors.price}
+          isRequired
+        >
           <InputGroup>
             <CustomInput
               type="number"

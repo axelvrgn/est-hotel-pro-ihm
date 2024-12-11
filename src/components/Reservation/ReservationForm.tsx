@@ -242,7 +242,7 @@ const ReservationForm = ({
           </CustomFormControl>
         </div>
         <CustomFormControl
-          label={"Prix"}
+          label={"Prix total"}
           errorField={errors.pricePaid}
           isRequired
         >
