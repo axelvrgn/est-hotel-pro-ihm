@@ -48,7 +48,7 @@ const Navbar = () => {
           )}
           {user ? (
             <NavbarLink to={"/account"}>
-              <Avatar size="xs" name={user?.accountResponse.firstName} />
+              <Avatar size="sm" name={user?.accountResponse.firstName} />
             </NavbarLink>
           ) : (
             <NavbarLink to={"/login"}>{"Connexion"}</NavbarLink>
