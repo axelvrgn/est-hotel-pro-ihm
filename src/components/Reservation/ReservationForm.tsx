@@ -24,6 +24,7 @@ import {
 } from "../../interfaces/Reservation";
 import { FormMode } from "../../helpers/FormUtils";
 import { HotelRoom } from "../../interfaces/HotelRoom";
+import { CATEGORY_ROOM_LABELS } from "../../data/HotelRoom";
 
 interface IReservationFormValues {
   userName: string;
@@ -180,7 +181,9 @@ const ReservationForm = ({
           >
             {allRooms.map((room) => (
               <option value={room.id} key={room.id}>
-                {room.roomNumber}
+                {`n°${room.roomNumber} (${
+                  CATEGORY_ROOM_LABELS[room.category]
+                })`}
               </option>
             ))}
           </Select>
