@@ -18,6 +18,7 @@ import HotelRoomForm from "./HotelRoomForm";
 import { FormMode } from "../../helpers/FormUtils";
 import { useToasts } from "../../contexts/toast";
 import { DeleteIcon } from "@chakra-ui/icons";
+import { ADMIN_ROLE } from "../../data/constants";
 
 type HotelRoomDetailedModalProps = {
   hotelRoomId: string;
@@ -111,21 +112,28 @@ const HotelRoomDetailedModal = ({
                     hotelRoom={hotelRoom}
                   />
 
-                  <Spacer h={6} />
-
-                  <div
-                    style={{ display: "flex", justifyContent: "flex-start" }}
-                  >
-                    <Button
-                      leftIcon={<DeleteIcon />}
-                      size={"sm"}
-                      colorScheme={"red"}
-                      onClick={deleteRoom}
-                      variant={"outline"}
-                    >
-                      {"Supprimer"}
-                    </Button>
-                  </div>
+                  {user?.accountResponse.role === ADMIN_ROLE && (
+                    <>
+                      {" "}
+                      <Spacer h={6} />
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "flex-start",
+                        }}
+                      >
+                        <Button
+                          leftIcon={<DeleteIcon />}
+                          size={"sm"}
+                          colorScheme={"red"}
+                          onClick={deleteRoom}
+                          variant={"outline"}
+                        >
+                          {"Supprimer"}
+                        </Button>
+                      </div>
+                    </>
+                  )}
                 </ModalBody>
               </>
             )}
