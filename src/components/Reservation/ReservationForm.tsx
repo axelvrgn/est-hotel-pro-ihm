@@ -65,7 +65,8 @@ const reservationFormValidationSchema = yup.object().shape({
   review: yup
     .number()
     .nullable()
-    .min(0)
+    .min(0, "Ce champ ne peut pas être négatif")
+    .max(5, "La note doit être comprise entre 0 et 5")
     .transform((val) => (val === Number(val) ? val : null)),
 });
 
@@ -205,9 +206,7 @@ const ReservationForm = ({
             />
           </CustomFormControl>
         </div>
-        <CustomFormControl label="Réclamations" errorField={errors.claim}>
-          <CustomTextArea name="claim" register={register} />
-        </CustomFormControl>
+
         <div style={{ display: "flex", gap: "15px" }}>
           <CustomFormControl
             label={"Nombre d'enfants"}
@@ -251,13 +250,17 @@ const ReservationForm = ({
             </InputRightElement>
           </InputGroup>
         </CustomFormControl>
-        <CustomFormControl label={"Review"} errorField={errors.review}>
+        <CustomFormControl label={"Avis"} errorField={errors.review}>
           <CustomInput
             type="number"
             name="review"
             register={register}
             min={0}
+            max={5}
           />
+        </CustomFormControl>
+        <CustomFormControl label="Commentaire" errorField={errors.claim}>
+          <CustomTextArea name="claim" register={register} />
         </CustomFormControl>
       </div>
       <Spacer height={"20px"} />

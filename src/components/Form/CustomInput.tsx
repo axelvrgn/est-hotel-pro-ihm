@@ -8,6 +8,7 @@ type CustomInputProps = {
   disabled?: boolean;
   placeholder?: string;
   min?: number;
+  max?: number;
 };
 
 const CustomInput = ({
@@ -17,6 +18,7 @@ const CustomInput = ({
   disabled,
   placeholder,
   min,
+  max,
 }: CustomInputProps) => {
   return (
     <Input
@@ -24,6 +26,7 @@ const CustomInput = ({
       placeholder={placeholder}
       {...register(name)}
       min={min}
+      max={max}
       focusBorderColor="primary.300"
       variant={"outline"}
       isDisabled={disabled}
