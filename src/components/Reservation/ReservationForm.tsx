@@ -86,6 +86,7 @@ const ReservationForm = ({
   reservation,
 }: ReservationFormProps) => {
   const {
+    watch,
     handleSubmit,
     register,
     formState: { errors, isValid },
@@ -132,6 +133,10 @@ const ReservationForm = ({
 
     submitFunction(newReservation);
   };
+
+  const toDay = new Date().toISOString().split("T")[0];
+
+  const isEndDateInPast = watch("endDate") < toDay;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -250,18 +255,22 @@ const ReservationForm = ({
             </InputRightElement>
           </InputGroup>
         </CustomFormControl>
-        <CustomFormControl label={"Avis"} errorField={errors.review}>
-          <CustomInput
-            type="number"
-            name="review"
-            register={register}
-            min={0}
-            max={5}
-          />
-        </CustomFormControl>
-        <CustomFormControl label="Commentaire" errorField={errors.claim}>
-          <CustomTextArea name="claim" register={register} />
-        </CustomFormControl>
+        {isEndDateInPast && (
+          <>
+            <CustomFormControl label={"Avis"} errorField={errors.review}>
+              <CustomInput
+                type="number"
+                name="review"
+                register={register}
+                min={0}
+                max={5}
+              />
+            </CustomFormControl>
+            <CustomFormControl label="Commentaire" errorField={errors.claim}>
+              <CustomTextArea name="claim" register={register} />
+            </CustomFormControl>
+          </>
+        )}
       </div>
       <Spacer height={"20px"} />
       <div style={{ display: "flex", justifyContent: "center" }}>

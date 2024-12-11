@@ -39,7 +39,6 @@ const ReservationItem = ({
         <Spacer height={"0.8rem"} />
         <Flex flexWrap={"wrap"} gap={"0.8rem"}>
           <Tag>{`${RESERVATION_STATUS_LABELS[reservation.status]}`}</Tag>
-
           <Tag>{`${CATEGORY_ROOM_LABELS[reservation.hotelRoom.category]}`}</Tag>
           <Tag>{`Adulte(s): ${reservation.numberOfAdults}`}</Tag>
           {reservation.numberOfChildren > 0 && (
