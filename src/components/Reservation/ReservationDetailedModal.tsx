@@ -115,18 +115,6 @@ const ReservationDetailedModal = ({
 
                   <Spacer h={6} />
 
-                  {/* <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <Button
-                      size={"sm"}
-                      colorScheme={"red"}
-                      onClick={deleteReservation}
-                    >
-                      <DeleteIcon />
-                    </Button>
-                  </div> */}
-
-                  <Spacer h={6} />
-
                   <ReservationForm
                     submitFunction={updateReservation}
                     formIsSubmitting={false}

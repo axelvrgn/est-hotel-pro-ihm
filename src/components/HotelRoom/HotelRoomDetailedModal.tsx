@@ -101,17 +101,6 @@ const HotelRoomDetailedModal = ({
                 <ModalCloseButton />
                 <ModalBody>
                   <Image src={hotelRoom.imageUrl} borderRadius="sm" />
-                  <Spacer h={6} />
-                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <Button
-                      leftIcon={<DeleteIcon />}
-                      size={"sm"}
-                      colorScheme={"red"}
-                      onClick={deleteRoom}
-                    >
-                      {"Supprimer"}
-                    </Button>
-                  </div>
 
                   <Spacer h={6} />
 
@@ -121,6 +110,22 @@ const HotelRoomDetailedModal = ({
                     formMode={FormMode.MODIFICATION}
                     hotelRoom={hotelRoom}
                   />
+
+                  <Spacer h={6} />
+
+                  <div
+                    style={{ display: "flex", justifyContent: "flex-start" }}
+                  >
+                    <Button
+                      leftIcon={<DeleteIcon />}
+                      size={"sm"}
+                      colorScheme={"red"}
+                      onClick={deleteRoom}
+                      variant={"outline"}
+                    >
+                      {"Supprimer"}
+                    </Button>
+                  </div>
                 </ModalBody>
               </>
             )}
