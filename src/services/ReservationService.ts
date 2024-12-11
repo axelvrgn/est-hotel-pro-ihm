@@ -18,15 +18,18 @@ const getAllReservations = async (
   status?: string,
   hotelRoomId?: string
 ) => {
-  return axios.get<Reservation[]>(`${API_BASE_URL}/ede-api/v1/reservations`, {
-    params: {
-      ...(status && { status }),
-      ...(hotelRoomId && { hotelRoomId }),
-    },
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  return axios.get<Reservation[]>(
+    `${API_BASE_URL}/ede-api/v1/reservations/filter`,
+    {
+      params: {
+        ...(status && { status }),
+        ...(hotelRoomId && { hotelRoomId }),
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 };
 
 const createReservation = async (
