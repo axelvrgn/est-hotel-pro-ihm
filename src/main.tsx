@@ -2,8 +2,11 @@ import "./index.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import HomeView from "./views/HomeView.tsx";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import ErrorView from "./views/ErrorView.tsx";
 import LoginView from "./views/LoginView.tsx";
 import PageLayout from "./layout/PageLayout.tsx";
@@ -43,15 +46,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: (
-          <PrivateRoute>
-            <HomeView />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "login",
-        element: <LoginView />,
+        element: <Navigate to="/reservation" replace />,
       },
       {
         path: "reservation",
@@ -60,6 +55,10 @@ const router = createBrowserRouter([
             <ReservationView />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "login",
+        element: <LoginView />,
       },
       {
         path: "reservation/creation",
