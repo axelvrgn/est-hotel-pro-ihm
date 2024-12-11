@@ -15,7 +15,7 @@ const NavbarLink = ({ to, children }: NavbarLinkProps) => {
       }}
       className={`navbar-link`}
     >
-      <Link style={{ padding: "6px" }} to={to}>
+      <Link style={{ padding: "8px" }} to={to}>
         {children}
       </Link>
     </div>

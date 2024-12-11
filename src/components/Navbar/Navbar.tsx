@@ -17,7 +17,7 @@ const Navbar = () => {
     <div
       style={{
         width: "100%",
-        height: "3rem",
+        height: "3.3rem",
         borderBottom: "1px solid #eee",
         padding: "0 20px",
       }}
@@ -36,7 +36,7 @@ const Navbar = () => {
           style={{ display: "flex", alignItems: "center" }}
           onClick={navigateToHome}
         >
-          <img src={logo} alt="Site Logo" style={{ height: "3rem" }} />
+          <img src={logo} alt="Site Logo" style={{ height: "3.6rem" }} />
           <Text fontSize={"2xl"}>{"Est Hotel Pro"}</Text>
         </div>
 
