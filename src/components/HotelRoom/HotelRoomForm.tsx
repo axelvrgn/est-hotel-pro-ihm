@@ -25,6 +25,7 @@ interface IHotelRoomFormValues {
   price: number;
   categoryRoom: string;
   imageUrl?: string;
+  state?: string;
 }
 
 const hotelRoomFormValidationSchema = yup.object().shape({
@@ -38,6 +39,7 @@ const hotelRoomFormValidationSchema = yup.object().shape({
     .transform((val) => (val === Number(val) ? val : null)),
   categoryRoom: yup.string().required(CHAMP_OBLIGATOIRE),
   imageUrl: yup.string().optional(),
+  state: yup.string().optional(),
 });
 
 type HotelRoomFormProps = {
@@ -141,6 +143,14 @@ const HotelRoomForm = ({
             ))}
           </Select>
         </CustomFormControl>
+        {formMode === FormMode.MODIFICATION && (
+          <CustomFormControl
+            label={"État de la chambre"}
+            errorField={errors.state}
+          >
+            <CustomInput type="text" name="state" register={register} />
+          </CustomFormControl>
+        )}
       </div>
       <Spacer height={"20px"} />
       <div style={{ display: "flex", justifyContent: "center" }}>
