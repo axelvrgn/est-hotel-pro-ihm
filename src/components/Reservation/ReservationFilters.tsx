@@ -1,0 +1,87 @@
+import { Select } from "@chakra-ui/react";
+import { useForm, useWatch } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useAuth } from "../../contexts/auth";
+import { HotelRoom } from "../../interfaces/HotelRoom";
+import { HotelRoomService } from "../../services/HotelRoomService";
+import {
+  RESERVATION_STATUS,
+  RESERVATION_STATUS_LABELS,
+} from "../../data/Reservation";
+
+export type SelectedReservationFilters = {
+  status: string;
+  hotelRoomId: string;
+};
+
+interface IReservationFiltersFormValues {
+  status: string;
+  hotelRoomId: string;
+}
+
+type ReservationFiltersProps = {
+  sendFilters: (filters: SelectedReservationFilters) => void;
+};
+
+const ReservationFilters = ({ sendFilters }: ReservationFiltersProps) => {
+  const [hotelRooms, setHotelRooms] = useState<HotelRoom[]>([]);
+
+  const { user } = useAuth();
+  const { register, control, handleSubmit } =
+    useForm<IReservationFiltersFormValues>();
+
+  const watchedFileds = useWatch({ control });
+
+  useEffect(() => {
+    fetchHotelRooms();
+  }, []);
+
+  useEffect(() => {
+    if (watchedFileds) {
+      handleSubmit((data) => handleFilters(data))();
+    }
+  }, [watchedFileds, handleSubmit]);
+
+  const fetchHotelRooms = () => {
+    if (user) {
+      HotelRoomService.getAllRooms(user.token).then((roomsRes) =>
+        setHotelRooms(roomsRes.data)
+      );
+    }
+  };
+
+  const handleFilters = (data: IReservationFiltersFormValues) => {
+    sendFilters(data);
+  };
+
+  return (
+    <form>
+      <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+        <Select
+          {...register("status")}
+          placeholder={"Sélectionner une catégorie"}
+          focusBorderColor="primary.300"
+        >
+          {RESERVATION_STATUS.map((status) => (
+            <option key={status} value={status}>
+              {RESERVATION_STATUS_LABELS[status]}
+            </option>
+          ))}
+        </Select>
+        <Select
+          {...register("hotelRoomId")}
+          placeholder={"Sélectionner une catégorie"}
+          focusBorderColor="primary.300"
+        >
+          {hotelRooms.map((hotelRoom) => (
+            <option key={hotelRoom.id} value={hotelRoom.id}>
+              {hotelRoom.id}
+            </option>
+          ))}
+        </Select>
+      </div>
+    </form>
+  );
+};
+
+export default ReservationFilters;
