@@ -1,9 +1,7 @@
 import { Select } from "@chakra-ui/react";
 import { useForm, useWatch } from "react-hook-form";
-import { useEffect, useState } from "react";
-import { useAuth } from "../../contexts/auth";
+import { useEffect } from "react";
 import { HotelRoom } from "../../interfaces/HotelRoom";
-import { HotelRoomService } from "../../services/HotelRoomService";
 import {
   RESERVATION_STATUS,
   RESERVATION_STATUS_LABELS,
@@ -20,35 +18,24 @@ interface IReservationFiltersFormValues {
 }
 
 type ReservationFiltersProps = {
+  hotelRooms: HotelRoom[];
   sendFilters: (filters: SelectedReservationFilters) => void;
 };
 
-const ReservationFilters = ({ sendFilters }: ReservationFiltersProps) => {
-  const [hotelRooms, setHotelRooms] = useState<HotelRoom[]>([]);
-
-  const { user } = useAuth();
+const ReservationFilters = ({
+  hotelRooms,
+  sendFilters,
+}: ReservationFiltersProps) => {
   const { register, control, handleSubmit } =
     useForm<IReservationFiltersFormValues>();
 
   const watchedFileds = useWatch({ control });
 
   useEffect(() => {
-    fetchHotelRooms();
-  }, []);
-
-  useEffect(() => {
     if (watchedFileds) {
       handleSubmit((data) => handleFilters(data))();
     }
   }, [watchedFileds, handleSubmit]);
-
-  const fetchHotelRooms = () => {
-    if (user) {
-      HotelRoomService.getAllRooms(user.token).then((roomsRes) =>
-        setHotelRooms(roomsRes.data)
-      );
-    }
-  };
 
   const handleFilters = (data: IReservationFiltersFormValues) => {
     sendFilters(data);
@@ -59,7 +46,7 @@ const ReservationFilters = ({ sendFilters }: ReservationFiltersProps) => {
       <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
         <Select
           {...register("status")}
-          placeholder={"Sélectionner une catégorie"}
+          placeholder={"Sélectionner un statut"}
           focusBorderColor="primary.300"
         >
           {RESERVATION_STATUS.map((status) => (
@@ -70,12 +57,12 @@ const ReservationFilters = ({ sendFilters }: ReservationFiltersProps) => {
         </Select>
         <Select
           {...register("hotelRoomId")}
-          placeholder={"Sélectionner une catégorie"}
+          placeholder={"Sélectionner une chambre"}
           focusBorderColor="primary.300"
         >
           {hotelRooms.map((hotelRoom) => (
             <option key={hotelRoom.id} value={hotelRoom.id}>
-              {hotelRoom.id}
+              {hotelRoom.roomNumber}
             </option>
           ))}
         </Select>

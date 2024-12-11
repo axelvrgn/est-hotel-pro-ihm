@@ -13,11 +13,24 @@ import ReservationItem from "./ReservationItem";
 import ReservationDetailedModal from "./ReservationDetailedModal";
 import { useAuth } from "../../contexts/auth";
 import { useToasts } from "../../contexts/toast";
+import { HotelRoomService } from "../../services/HotelRoomService";
+import { HotelRoom } from "../../interfaces/HotelRoom";
+import ReservationFilters, {
+  SelectedReservationFilters,
+} from "./ReservationFilters";
 
 const ReservationList = () => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [reservationsAreLoading, setReservationsAreLoading] =
     useState<boolean>(false);
+
+  const [selectedReservationFilters, setSelectedReservationFilters] =
+    useState<SelectedReservationFilters>({
+      status: "",
+      hotelRoomId: "",
+    });
+
+  const [hotelRooms, setHotelRooms] = useState<HotelRoom[]>([]);
 
   const [selectedReservationId, setSelectedReservationId] = useState<
     string | null
@@ -29,13 +42,21 @@ const ReservationList = () => {
   const { pushToast } = useToasts();
 
   useEffect(() => {
-    fetchReservations();
+    fetchHotelRooms();
   }, []);
+
+  useEffect(() => {
+    fetchReservations();
+  }, [selectedReservationFilters]);
 
   const fetchReservations = () => {
     if (user) {
       setReservationsAreLoading(true);
-      ReservationService.getAllReservations(user.token)
+      ReservationService.getAllReservations(
+        user.token,
+        selectedReservationFilters.status,
+        selectedReservationFilters.hotelRoomId
+      )
         .then((reservationsRes) => {
           setReservations(reservationsRes.data);
         })
@@ -46,6 +67,14 @@ const ReservationList = () => {
           })
         )
         .finally(() => setReservationsAreLoading(false));
+    }
+  };
+
+  const fetchHotelRooms = () => {
+    if (user) {
+      HotelRoomService.getAllRooms(user.token).then((roomsRes) =>
+        setHotelRooms(roomsRes.data)
+      );
     }
   };
 
@@ -60,6 +89,10 @@ const ReservationList = () => {
     fetchReservations();
   };
 
+  const applyFilters = (filters: SelectedReservationFilters) => {
+    setSelectedReservationFilters(filters);
+  };
+
   return (
     <>
       {selectedReservationId && (
@@ -67,12 +100,22 @@ const ReservationList = () => {
           reservationId={selectedReservationId}
           isOpen={isDetailedModalOpen}
           onClose={closeModal}
+          hotelRooms={hotelRooms}
         />
       )}
 
+      <Container>
+        <ReservationFilters
+          hotelRooms={hotelRooms}
+          sendFilters={applyFilters}
+        />
+      </Container>
+
+      <Spacer h={6} />
+      <Divider />
+      <Spacer h={6} />
+
       <Container maxW={"container.xl"}>
-        <Divider />
-        <Spacer h={6} />
         {reservationsAreLoading ? (
           <Spinner />
         ) : (

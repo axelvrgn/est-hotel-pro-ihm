@@ -36,7 +36,7 @@ interface IReservationFormValues {
   numberOfChildren: number;
   numberOfAdults: number;
   pricePaid: number;
-  review?: number;
+  review?: number | null;
 }
 
 const reservationFormValidationSchema = yup.object().shape({
@@ -64,7 +64,7 @@ const reservationFormValidationSchema = yup.object().shape({
     .transform((val) => (val === Number(val) ? val : null)),
   review: yup
     .number()
-    .optional()
+    .nullable()
     .min(0)
     .transform((val) => (val === Number(val) ? val : null)),
 });
@@ -126,7 +126,7 @@ const ReservationForm = ({
       numberOfChildren: values.numberOfChildren,
       numberOfAdults: values.numberOfAdults,
       pricePaid: values.pricePaid,
-      review: values.review,
+      ...(values.review && { review: values.review }),
     };
 
     submitFunction(newReservation);
@@ -208,30 +208,32 @@ const ReservationForm = ({
         <CustomFormControl label="Réclamations" errorField={errors.claim}>
           <CustomTextArea name="claim" register={register} />
         </CustomFormControl>
-        <CustomFormControl
-          label={"Nombre d'enfants"}
-          errorField={errors.numberOfChildren}
-          isRequired
-        >
-          <CustomInput
-            type="number"
-            name="numberOfChildren"
-            register={register}
-            min={0}
-          />
-        </CustomFormControl>
-        <CustomFormControl
-          label={"Nombre d'adultes"}
-          errorField={errors.numberOfAdults}
-          isRequired
-        >
-          <CustomInput
-            type="number"
-            name="numberOfAdults"
-            register={register}
-            min={0}
-          />
-        </CustomFormControl>
+        <div style={{ display: "flex", gap: "15px" }}>
+          <CustomFormControl
+            label={"Nombre d'enfants"}
+            errorField={errors.numberOfChildren}
+            isRequired
+          >
+            <CustomInput
+              type="number"
+              name="numberOfChildren"
+              register={register}
+              min={0}
+            />
+          </CustomFormControl>
+          <CustomFormControl
+            label={"Nombre d'adultes"}
+            errorField={errors.numberOfAdults}
+            isRequired
+          >
+            <CustomInput
+              type="number"
+              name="numberOfAdults"
+              register={register}
+              min={0}
+            />
+          </CustomFormControl>
+        </div>
         <CustomFormControl
           label={"Prix"}
           errorField={errors.pricePaid}

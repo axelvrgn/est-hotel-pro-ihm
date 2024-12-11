@@ -90,10 +90,10 @@ const HotelRoomList = () => {
       </Container>
 
       <Spacer h={6} />
+      <Divider />
+      <Spacer h={6} />
 
       <Container>
-        <Divider />
-        <Spacer h={6} />
         {hotelRoomsAreLoading ? (
           <Spinner />
         ) : (

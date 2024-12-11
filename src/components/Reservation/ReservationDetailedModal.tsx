@@ -19,31 +19,26 @@ import { FormMode } from "../../helpers/FormUtils";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useToasts } from "../../contexts/toast";
 import { HotelRoom } from "../../interfaces/HotelRoom";
-import { HotelRoomService } from "../../services/HotelRoomService";
 
 type ReservationDetailedModalProps = {
   reservationId: string;
   isOpen: boolean;
   onClose: () => void;
+  hotelRooms: HotelRoom[];
 };
 
 const ReservationDetailedModal = ({
   reservationId,
   isOpen,
   onClose,
+  hotelRooms,
 }: ReservationDetailedModalProps) => {
   const [reservation, setReservation] = useState<Reservation | null>(null);
   const [reservationIsLoading, setReservationIsLoading] =
     useState<boolean>(false);
 
-  const [hotelRooms, setHotelRooms] = useState<HotelRoom[]>([]);
-
   const { user } = useAuth();
   const { pushToast } = useToasts();
-
-  useEffect(() => {
-    fetchHotelRooms();
-  }, []);
 
   useEffect(() => {
     fetchReservation();
@@ -55,14 +50,6 @@ const ReservationDetailedModal = ({
       ReservationService.getReservationById(user.token, reservationId)
         .then((reservationRes) => setReservation(reservationRes.data[0]))
         .finally(() => setReservationIsLoading(false));
-    }
-  };
-
-  const fetchHotelRooms = () => {
-    if (user) {
-      HotelRoomService.getAllRooms(user.token).then((roomsRes) =>
-        setHotelRooms(roomsRes.data)
-      );
     }
   };
 
