@@ -20,7 +20,7 @@ const getFilteredRooms = async (
     {
       params: {
         ...(category && { category }),
-        ...(available && { available }),
+        ...(available !== undefined && { available }),
       },
       headers: {
         Authorization: `Bearer ${token}`,

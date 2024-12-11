@@ -21,3 +21,6 @@ export const CATEGORY_ROOM_LABELS: { [key: string]: string } = {
   VILLA: "Villa",
   VILLA_VIP: "Villa VIP",
 };
+
+export const RESERVED = "RESERVED";
+export const AVAILABLE = "AVAILABLE";

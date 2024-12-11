@@ -14,6 +14,7 @@ import HotelRoomDetailedModal from "./HotelRoomDetailedModal";
 import { useAuth } from "../../contexts/auth";
 import { useToasts } from "../../contexts/toast";
 import HotelRoomFilters, { SelectedHotelRoomFilters } from "./HotelRoomFilters";
+import { AVAILABLE, RESERVED } from "../../data/HotelRoom";
 
 const HotelRoomList = () => {
   const [hotelRooms, setHotelRooms] = useState<HotelRoom[]>([]);
@@ -23,7 +24,7 @@ const HotelRoomList = () => {
   const [selectedHotelRoomFilters, setSelectedHotelRoomFilters] =
     useState<SelectedHotelRoomFilters>({
       categoryRoom: "",
-      isAvailable: undefined,
+      roomStatus: "",
     });
 
   const [selectedHotelRoomId, setSelectedHotelRoomId] = useState<string | null>(
@@ -39,16 +40,23 @@ const HotelRoomList = () => {
     fetchHotelRooms();
   }, [
     selectedHotelRoomFilters.categoryRoom,
-    selectedHotelRoomFilters.isAvailable,
+    selectedHotelRoomFilters.roomStatus,
   ]);
 
   const fetchHotelRooms = () => {
+    const isAvailable =
+      selectedHotelRoomFilters.roomStatus == AVAILABLE
+        ? true
+        : selectedHotelRoomFilters.roomStatus == RESERVED
+        ? false
+        : undefined;
+
     if (user) {
       setHotelRoomsAreLoading(true);
       HotelRoomService.getFilteredRooms(
         user.token,
         selectedHotelRoomFilters.categoryRoom,
-        selectedHotelRoomFilters.isAvailable
+        isAvailable
       )
         .then((hotelRoomsRes) => setHotelRooms(hotelRoomsRes.data))
         .catch(() =>
@@ -73,7 +81,6 @@ const HotelRoomList = () => {
   };
 
   const applyFilters = (filters: SelectedHotelRoomFilters) => {
-    console.log(filters);
     setSelectedHotelRoomFilters(filters);
   };
 

@@ -1,16 +1,21 @@
-import { FormControl, FormLabel, Select, Switch } from "@chakra-ui/react";
-import { Controller, useForm, useWatch } from "react-hook-form";
-import { CATEGORIES_ROOM, CATEGORY_ROOM_LABELS } from "../../data/HotelRoom";
+import { Select } from "@chakra-ui/react";
+import { useForm, useWatch } from "react-hook-form";
+import {
+  AVAILABLE,
+  CATEGORIES_ROOM,
+  CATEGORY_ROOM_LABELS,
+  RESERVED,
+} from "../../data/HotelRoom";
 import { useEffect } from "react";
 
 export type SelectedHotelRoomFilters = {
   categoryRoom: string;
-  isAvailable?: boolean;
+  roomStatus?: string;
 };
 
 interface IHotelRoomFiltersFormValues {
   categoryRoom: string;
-  isAvailable: boolean;
+  roomStatus: string;
 }
 
 type HotelRoomFiltersProps = {
@@ -36,18 +41,14 @@ const HotelRoomFilters = ({ sendFilters }: HotelRoomFiltersProps) => {
   return (
     <form>
       <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
-        <FormControl display="flex" alignItems="center">
-          <FormLabel htmlFor="email-alerts" mb="0">
-            {"Chambres libres"}
-          </FormLabel>
-          <Controller
-            control={control}
-            name="isAvailable"
-            render={({ field: { onChange } }) => (
-              <Switch onChange={(e) => onChange(e.target.checked)} />
-            )}
-          />
-        </FormControl>
+        <Select
+          {...register("roomStatus")}
+          placeholder={"Sélectionner un statut"}
+          focusBorderColor="primary.300"
+        >
+          <option value={RESERVED}>{"Réservée"}</option>
+          <option value={AVAILABLE}>{"Libre"}</option>
+        </Select>
         <Select
           {...register("categoryRoom")}
           placeholder={"Sélectionner une catégorie"}
