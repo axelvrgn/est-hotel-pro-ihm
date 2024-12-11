@@ -10,6 +10,25 @@ const getRoomById = async (token: string, roomId: string) => {
   });
 };
 
+const getFilteredRooms = async (
+  token: string,
+  category?: string,
+  available?: boolean
+) => {
+  return axios.get<HotelRoom[]>(
+    `${API_BASE_URL}/ede-api/v1/hotel-rooms/filter`,
+    {
+      params: {
+        ...(category && { category }),
+        ...(available !== undefined && { available }),
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
 const getAllRooms = async (token: string) => {
   return axios.get<HotelRoom[]>(`${API_BASE_URL}/ede-api/v1/hotel-rooms`, {
     headers: {
@@ -74,6 +93,7 @@ const deleteRoom = async (token: string, roomId: string) => {
 
 export const HotelRoomService = {
   getRoomById,
+  getFilteredRooms,
   getAllRooms,
   getAllAvailableRooms,
   getAllRoomsByCategory,

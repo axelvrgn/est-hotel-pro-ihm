@@ -37,52 +37,18 @@ const HotelRoomList = () => {
 
   useEffect(() => {
     fetchHotelRooms();
-  }, []);
-
-  useEffect(() => {
-    fetchAvailableHotelRooms();
-  }, [selectedHotelRoomFilters.isAvailable]);
-
-  useEffect(() => {
-    fetchHotelRoomsByCategory();
-  }, [selectedHotelRoomFilters.categoryRoom]);
+  }, [
+    selectedHotelRoomFilters.categoryRoom,
+    selectedHotelRoomFilters.isAvailable,
+  ]);
 
   const fetchHotelRooms = () => {
     if (user) {
       setHotelRoomsAreLoading(true);
-      HotelRoomService.getAllRooms(user.token)
-        .then((hotelRoomsRes) => setHotelRooms(hotelRoomsRes.data))
-        .catch(() =>
-          pushToast({
-            content: "Erreur lors de la récupération des chambres",
-            state: "ERROR",
-          })
-        )
-        .finally(() => setHotelRoomsAreLoading(false));
-    }
-  };
-
-  const fetchAvailableHotelRooms = () => {
-    if (user) {
-      setHotelRoomsAreLoading(true);
-      HotelRoomService.getAllAvailableRooms(user.token)
-        .then((hotelRoomsRes) => setHotelRooms(hotelRoomsRes.data))
-        .catch(() =>
-          pushToast({
-            content: "Erreur lors de la récupération des chambres",
-            state: "ERROR",
-          })
-        )
-        .finally(() => setHotelRoomsAreLoading(false));
-    }
-  };
-
-  const fetchHotelRoomsByCategory = () => {
-    if (user) {
-      setHotelRoomsAreLoading(true);
-      HotelRoomService.getAllRoomsByCategory(
+      HotelRoomService.getFilteredRooms(
         user.token,
-        selectedHotelRoomFilters.categoryRoom
+        selectedHotelRoomFilters.categoryRoom,
+        selectedHotelRoomFilters.isAvailable
       )
         .then((hotelRoomsRes) => setHotelRooms(hotelRoomsRes.data))
         .catch(() =>
