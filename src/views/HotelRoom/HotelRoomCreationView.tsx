@@ -27,9 +27,10 @@ const HotelRoomCreationView = () => {
           });
           navigate("/hotelRoom");
         })
-        .catch(() =>
+        .catch((err) =>
           pushToast({
-            content: "Erreur lors de la création de la chambre",
+            content: `Erreur lors de la création de la chambre : ${err.response.data}`,
+            state: "ERROR",
           })
         )
         .finally(() => setFormIsSubmitting(false));

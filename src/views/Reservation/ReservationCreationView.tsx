@@ -43,12 +43,13 @@ const ReservationCreationView = () => {
           });
           navigate("/reservation");
         })
-        .catch(() =>
+        .catch((err) => {
+          console.log(err);
           pushToast({
             state: "ERROR",
-            content: "Erreur lors de la création de la réservation",
-          })
-        )
+            content: `Erreur lors de la création de la réservation : ${err.response.data}`,
+          });
+        })
         .finally(() => setFormIsSubmitting(false));
     }
   };

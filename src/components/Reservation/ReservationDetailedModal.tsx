@@ -67,9 +67,9 @@ const ReservationDetailedModal = ({
           });
           onClose();
         })
-        .catch(() => {
+        .catch((err) => {
           pushToast({
-            content: "Erreur lors de la modification de la réservation",
+            content: `Erreur lors de la modification de la réservation : ${err.response.data}`,
             state: "ERROR",
           });
         });

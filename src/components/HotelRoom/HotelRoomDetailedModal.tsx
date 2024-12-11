@@ -59,9 +59,9 @@ const HotelRoomDetailedModal = ({
           });
           onClose();
         })
-        .catch(() => {
+        .catch((err) => {
           pushToast({
-            content: "Erreur lors de la modification de la chambre",
+            content: `Erreur lors de la modification de la chambre : ${err.response.data}`,
             state: "ERROR",
           });
         });
