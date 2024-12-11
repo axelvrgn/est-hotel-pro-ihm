@@ -18,7 +18,7 @@ export interface CreateHotelRoom {
   price: number;
   category: CategoryRoom;
   state: string;
-  imageUrl: String;
+  imageUrl: string;
 }
 
 export interface HotelRoom {

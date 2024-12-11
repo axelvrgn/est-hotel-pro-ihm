@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 export type SelectedHotelRoomFilters = {
   categoryRoom: string;
-  isAvailable: boolean;
+  isAvailable?: boolean;
 };
 
 interface IHotelRoomFiltersFormValues {

@@ -23,7 +23,7 @@ const HotelRoomList = () => {
   const [selectedHotelRoomFilters, setSelectedHotelRoomFilters] =
     useState<SelectedHotelRoomFilters>({
       categoryRoom: "",
-      isAvailable: false,
+      isAvailable: undefined,
     });
 
   const [selectedHotelRoomId, setSelectedHotelRoomId] = useState<string | null>(
@@ -73,6 +73,7 @@ const HotelRoomList = () => {
   };
 
   const applyFilters = (filters: SelectedHotelRoomFilters) => {
+    console.log(filters);
     setSelectedHotelRoomFilters(filters);
   };
 
