@@ -115,16 +115,15 @@ const ReservationDetailedModal = ({
 
                   <Spacer h={6} />
 
-                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                  {/* <div style={{ display: "flex", justifyContent: "flex-end" }}>
                     <Button
-                      leftIcon={<DeleteIcon />}
                       size={"sm"}
                       colorScheme={"red"}
                       onClick={deleteReservation}
                     >
-                      {"Supprimer"}
+                      <DeleteIcon />
                     </Button>
-                  </div>
+                  </div> */}
 
                   <Spacer h={6} />
 
@@ -135,6 +134,22 @@ const ReservationDetailedModal = ({
                     allRooms={hotelRooms}
                     reservation={reservation}
                   />
+
+                  <Spacer h={6} />
+
+                  <div
+                    style={{ display: "flex", justifyContent: "flex-start" }}
+                  >
+                    <Button
+                      leftIcon={<DeleteIcon />}
+                      size={"sm"}
+                      colorScheme={"red"}
+                      onClick={deleteReservation}
+                      variant={"outline"}
+                    >
+                      {"Supprimer"}
+                    </Button>
+                  </div>
                 </ModalBody>
               </>
             )}
