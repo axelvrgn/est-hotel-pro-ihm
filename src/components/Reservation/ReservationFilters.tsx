@@ -6,6 +6,7 @@ import {
   RESERVATION_STATUS,
   RESERVATION_STATUS_LABELS,
 } from "../../data/Reservation";
+import { CATEGORY_ROOM_LABELS } from "../../data/HotelRoom";
 
 export type SelectedReservationFilters = {
   status: string;
@@ -62,7 +63,9 @@ const ReservationFilters = ({
         >
           {hotelRooms.map((hotelRoom) => (
             <option key={hotelRoom.id} value={hotelRoom.id}>
-              {hotelRoom.roomNumber}
+              {`n°${hotelRoom.roomNumber} (${
+                CATEGORY_ROOM_LABELS[hotelRoom.category]
+              })`}
             </option>
           ))}
         </Select>

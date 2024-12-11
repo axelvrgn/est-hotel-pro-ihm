@@ -35,9 +35,9 @@ const RegisterView = () => {
   };
   return (
     <PageContainer>
-      <Box maxWidth={"380px"} style={{ margin: "auto" }}>
+      <Box maxWidth={"400px"} style={{ margin: "auto" }}>
         <Heading as="h3" size="lg" textAlign={"center"}>
-          {"Création d'un compte"}
+          {"Création d'un compte STAFF"}
         </Heading>
         <Spacer h={6} />
         <RegisterForm
