@@ -7,7 +7,7 @@ import RegisterForm from "../components/Register/RegisterForm";
 import { CreateAccount } from "../interfaces/Account";
 import { useAuth } from "../contexts/auth";
 
-const RegisterView = () => {
+const AdministrationView = () => {
   const [formIsSubmitting, setFormIsSubmitting] = useState(false);
 
   const { pushToast } = useToasts();
@@ -48,4 +48,4 @@ const RegisterView = () => {
     </PageContainer>
   );
 };
-export default RegisterView;
+export default AdministrationView;
