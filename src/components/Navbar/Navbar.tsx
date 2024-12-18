@@ -44,7 +44,7 @@ const Navbar = () => {
           <NavbarLink to={"/reservation"}>{"Réservation"}</NavbarLink>
           <NavbarLink to={"/hotelRoom"}>{"Chambre"}</NavbarLink>
           {user?.accountResponse.role === ADMIN_ROLE && (
-            <NavbarLink to={"/register"}>{"Administration"}</NavbarLink>
+            <NavbarLink to={"/administration"}>{"Administration"}</NavbarLink>
           )}
           {user ? (
             <NavbarLink to={"/account"}>
