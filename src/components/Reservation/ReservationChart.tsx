@@ -6,6 +6,7 @@ import {
   Tooltip,
   LineChart,
   Line,
+  Label,
 } from "recharts";
 import { useEffect, useState } from "react";
 import { ReservationService } from "../../services/ReservationService";
@@ -64,8 +65,17 @@ const ReservationChart = () => {
         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" />
-        <YAxis />
+        <XAxis dataKey="date">
+          <Label value="Date" offset={-5} position="insideBottom" />
+        </XAxis>
+        <YAxis>
+          <Label
+            value="Nombre de réservations"
+            angle={-90}
+            position="insideLeft"
+            style={{ textAnchor: "middle" }}
+          />
+        </YAxis>
         <Tooltip />
         <Line
           type="monotone"
