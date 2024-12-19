@@ -37,3 +37,8 @@ export interface Reservation {
   review: number;
   status: ReservationStatus;
 }
+
+export interface ChartData {
+  id: string;
+  startDate: string;
+}

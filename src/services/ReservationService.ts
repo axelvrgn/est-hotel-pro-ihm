@@ -29,6 +29,14 @@ const getAllReservations = async (
   );
 };
 
+const getAllReservationsForChart = async (token: string) => {
+  return axios.get(`${API_BASE_URL}/ede-api/v1/reservations/charts`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 const createReservation = async (
   token: string,
   newReservation: CreateReservation
@@ -70,6 +78,7 @@ const deleteReservation = async (token: string, reservationId: string) => {
 export const ReservationService = {
   getReservationById,
   getAllReservations,
+  getAllReservationsForChart,
   createReservation,
   updateReservation,
   deleteReservation,
