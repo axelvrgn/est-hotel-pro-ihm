@@ -1,5 +1,9 @@
 import axios from "axios";
-import { CreateReservation, Reservation } from "../interfaces/Reservation";
+import {
+  CreateReservation,
+  Reservation,
+  ReservationChartData,
+} from "../interfaces/Reservation";
 import { API_BASE_URL } from "../data/constants";
 
 const getReservationById = async (token: string, reservationId: string) => {
@@ -30,11 +34,14 @@ const getAllReservations = async (
 };
 
 const getAllReservationsForChart = async (token: string) => {
-  return axios.get(`${API_BASE_URL}/ede-api/v1/reservations/charts`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  return axios.get<ReservationChartData[]>(
+    `${API_BASE_URL}/ede-api/v1/reservations/charts`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 };
 
 const createReservation = async (

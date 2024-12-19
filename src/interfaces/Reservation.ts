@@ -38,7 +38,7 @@ export interface Reservation {
   status: ReservationStatus;
 }
 
-export interface ChartData {
+export interface ReservationChartData {
   id: string;
   startDate: string;
 }

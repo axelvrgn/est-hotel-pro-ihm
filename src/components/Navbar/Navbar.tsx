@@ -43,6 +43,7 @@ const Navbar = () => {
         <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
           <NavbarLink to={"/reservation"}>{"Réservation"}</NavbarLink>
           <NavbarLink to={"/hotelRoom"}>{"Chambre"}</NavbarLink>
+          <NavbarLink to={"/statistic"}>{"Statistique"}</NavbarLink>
           {user?.accountResponse.role === ADMIN_ROLE && (
             <NavbarLink to={"/administration"}>{"Administration"}</NavbarLink>
           )}

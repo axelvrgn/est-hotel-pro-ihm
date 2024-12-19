@@ -20,6 +20,7 @@ import PrivateRoute from "./components/Router/PrivateRoute.tsx";
 import AccountView from "./views/AccountView.tsx";
 import UnauthorizedView from "./views/UnauthorizedView.tsx";
 import AdministrationView from "./views/AdministrationView.tsx";
+import StatisticView from "./views/StatisticView.tsx";
 
 const colors = {
   primary: {
@@ -81,6 +82,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <HotelRoomCreationView />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "statistic",
+        element: (
+          <PrivateRoute>
+            <StatisticView />
           </PrivateRoute>
         ),
       },
