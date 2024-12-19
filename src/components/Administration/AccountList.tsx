@@ -6,6 +6,7 @@ import {
   List,
   ListItem,
   Spinner,
+  Tag,
 } from "@chakra-ui/react";
 import { AccountResponse } from "../../interfaces/Account";
 import { AuthService } from "../../services/AuthService";
@@ -34,7 +35,7 @@ const AccountList = () => {
 
   return (
     <Box p={4}>
-      <Heading as="h2" size="lg" mb={4}>
+      <Heading as="h2" size="md" mb={4}>
         Liste des utilisateurs
       </Heading>
       {accountsAreLoading ? (
@@ -48,13 +49,15 @@ const AccountList = () => {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Box>
+              <Box display="flex" gap={2} alignItems="center">
+                <Tag colorScheme="blue">{account.role}</Tag>
                 {account.firstName} {account.name} ({account.phoneNumber})
               </Box>
               <Button
                 colorScheme="red"
                 variant={"outline"}
                 onClick={() => handleDelete(account.id)}
+                size={"sm"}
               >
                 Supprimer
               </Button>

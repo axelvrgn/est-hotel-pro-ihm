@@ -6,6 +6,7 @@ import { useToasts } from "../contexts/toast";
 import RegisterForm from "../components/Register/RegisterForm";
 import { CreateAccount } from "../interfaces/Account";
 import { useAuth } from "../contexts/auth";
+import AccountList from "../components/Administration/AccountList";
 
 const AdministrationView = () => {
   const [formIsSubmitting, setFormIsSubmitting] = useState(false);
@@ -36,10 +37,12 @@ const AdministrationView = () => {
   return (
     <PageContainer>
       <Box maxWidth={"400px"} style={{ margin: "auto" }}>
-        <Heading as="h3" size="lg" textAlign={"center"}>
+        <Spacer h={6} />
+        <AccountList />
+        <Spacer h={6} />
+        <Heading as="h2" size="md" mb={4}>
           {"Création d'un compte STAFF"}
         </Heading>
-        <Spacer h={6} />
         <RegisterForm
           submitFunction={register}
           formIsSubmitting={formIsSubmitting}
