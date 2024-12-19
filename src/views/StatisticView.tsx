@@ -5,7 +5,7 @@ import PageContainer from "../layout/PageContainer";
 const StatisticView = () => {
   return (
     <PageContainer>
-      <Heading>{"Statistiques (données d'exemple)"}</Heading>
+      <Heading>{"Statistiques"}</Heading>
       <ReservationChart />
     </PageContainer>
   );
