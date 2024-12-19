@@ -14,24 +14,15 @@ import { useAuth } from "../../contexts/auth";
 import { ReservationChartData } from "../../interfaces/Reservation";
 import moment from "moment";
 
-const exampleData = [
-  { date: moment().subtract(6, "days").format("DD/MM/YYYY"), count: 2 },
-  { date: moment().subtract(5, "days").format("DD/MM/YYYY"), count: 3 },
-  { date: moment().subtract(4, "days").format("DD/MM/YYYY"), count: 5 },
-  { date: moment().subtract(3, "days").format("DD/MM/YYYY"), count: 1 },
-  { date: moment().subtract(2, "days").format("DD/MM/YYYY"), count: 4 },
-  { date: moment().subtract(1, "days").format("DD/MM/YYYY"), count: 6 },
-  { date: moment().format("DD/MM/YYYY"), count: 7 },
-];
-
 const ReservationChart = () => {
-  const [reservations, setReservations] =
-    useState<{ date: string; count: number }[]>(exampleData);
+  const [reservations, setReservations] = useState<
+    { date: string; count: number }[]
+  >([]);
 
   const { user } = useAuth();
 
   useEffect(() => {
-    //fetchAllReservationsChart();
+    fetchAllReservationsChart();
   }, []);
 
   const fetchAllReservationsChart = () => {
