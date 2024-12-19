@@ -24,4 +24,17 @@ const createAccount = (token: string, account: CreateAccount) => {
   });
 };
 
-export const AuthService = { getAllAccounts, login, createAccount };
+const deleteAccount = (token: string, userId: string) => {
+  return axios.delete(`${API_BASE_URL}/ede-api/v1/accounts/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const AuthService = {
+  getAllAccounts,
+  login,
+  createAccount,
+  deleteAccount,
+};

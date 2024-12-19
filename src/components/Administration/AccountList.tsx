@@ -11,12 +11,14 @@ import {
 import { AccountResponse } from "../../interfaces/Account";
 import { AuthService } from "../../services/AuthService";
 import { useAuth } from "../../contexts/auth";
+import { useToasts } from "../../contexts/toast";
 
 const AccountList = () => {
   const [accounts, setAccounts] = useState<AccountResponse[]>([]);
   const [accountsAreLoading, setAccountsAreLoading] = useState(false);
 
   const { user } = useAuth();
+  const { pushToast } = useToasts();
 
   useEffect(() => {
     fetchAllAccounts();
@@ -31,12 +33,29 @@ const AccountList = () => {
     }
   };
 
-  const handleDelete = (id: string) => {};
+  const handleDelete = (userId: string) => {
+    if (user) {
+      AuthService.deleteAccount(user.token, userId)
+        .then(() => {
+          pushToast({
+            content: "Utilisateur supprimé avec succès",
+            state: "SUCCESS",
+          });
+          fetchAllAccounts();
+        })
+        .catch((err) =>
+          pushToast({
+            content: `Erreur lors de la suppression de l'utilisateur : ${err.response.data}`,
+            state: "ERROR",
+          })
+        );
+    }
+  };
 
   return (
     <Box p={4}>
       <Heading as="h2" size="md" mb={4}>
-        Liste des utilisateurs
+        {"Liste des utilisateurs"}
       </Heading>
       {accountsAreLoading ? (
         <Spinner />
