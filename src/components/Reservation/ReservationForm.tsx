@@ -260,7 +260,10 @@ const ReservationForm = ({
         </CustomFormControl>
         {isEndDateInPast && (
           <>
-            <CustomFormControl label={"Avis"} errorField={errors.review}>
+            <CustomFormControl
+              label={"Avis (note sur 5)"}
+              errorField={errors.review}
+            >
               <CustomInput
                 type="number"
                 name="review"
