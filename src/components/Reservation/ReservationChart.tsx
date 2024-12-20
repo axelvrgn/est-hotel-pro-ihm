@@ -59,7 +59,10 @@ const ReservationChart = () => {
         <XAxis dataKey="date">
           <Label value="Date" offset={-5} position="insideBottom" />
         </XAxis>
-        <YAxis>
+        <YAxis
+          tickFormatter={(tick) => (Number.isInteger(tick) ? tick : "")}
+          allowDecimals={false}
+        >
           <Label
             value="Nombre de réservations"
             angle={-90}
